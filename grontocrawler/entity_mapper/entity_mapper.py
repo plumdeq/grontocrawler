@@ -23,6 +23,6 @@ def match_entity(keyword, g):
 
 	for namespace in namespaces:
 		if namespace[keyword] in g.subjects():
-			return True
+			return namespace[keyword]
 
-	return False
+	return None
