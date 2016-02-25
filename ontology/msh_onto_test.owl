@@ -1,0 +1,2402 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY ontology "http://www.multiscalehuman.ch/ontology/" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/asan/ontologies/2014/9/untitled-ontology-49#"
+     xml:base="http://www.semanticweb.org/asan/ontologies/2014/9/untitled-ontology-49"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:ontology="http://www.multiscalehuman.ch/ontology/">
+    <owl:Ontology rdf:about="http://www.multiscalehuman.miralab.ch/"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/acquiredBy -->
+
+    <owl:ObjectProperty rdf:about="&ontology;acquiredBy">
+        <owl:inverseOf rdf:resource="&ontology;acquires"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/acquires -->
+
+    <owl:ObjectProperty rdf:about="&ontology;acquires">
+        <rdfs:range rdf:resource="&ontology;Acquired_data"/>
+        <rdfs:domain rdf:resource="&ontology;Acquisition_session"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/belongsTo -->
+
+    <owl:ObjectProperty rdf:about="&ontology;belongsTo">
+        <rdfs:domain rdf:resource="&ontology;Data"/>
+        <rdfs:range rdf:resource="&ontology;Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/calculatedFrom -->
+
+    <owl:ObjectProperty rdf:about="&ontology;calculatedFrom">
+        <rdfs:range rdf:resource="&ontology;Acquired_data"/>
+        <rdfs:domain rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/causesDPF -->
+
+    <owl:ObjectProperty rdf:about="&ontology;causesDPF">
+        <rdfs:domain rdf:resource="&ontology;Degradation_process_feature"/>
+        <rdfs:range rdf:resource="&ontology;Degradation_process_feature"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/causesSOE -->
+
+    <owl:ObjectProperty rdf:about="&ontology;causesSOE">
+        <rdfs:range rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:domain rdf:resource="&ontology;Source_of_evidence"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/dataProducedWithProtocol -->
+
+    <owl:ObjectProperty rdf:about="&ontology;dataProducedWithProtocol">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&ontology;acquiredBy"/>
+            <rdf:Description rdf:about="&ontology;performedWith"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/evidencedBySOE -->
+
+    <owl:ObjectProperty rdf:about="&ontology;evidencedBySOE">
+        <rdfs:domain rdf:resource="&ontology;Degradation_process_feature"/>
+        <rdfs:range rdf:resource="&ontology;Source_of_evidence"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasPart -->
+
+    <owl:ObjectProperty rdf:about="&ontology;hasPart"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/interestedInBI -->
+
+    <owl:ObjectProperty rdf:about="&ontology;interestedInBI">
+        <rdfs:range rdf:resource="&ontology;Biomedical_investigation"/>
+        <rdfs:domain rdf:resource="&ontology;Specialist"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/interestedInData -->
+
+    <owl:ObjectProperty rdf:about="&ontology;interestedInData">
+        <rdfs:range rdf:resource="&ontology;Data"/>
+        <rdfs:domain rdf:resource="&ontology;Specialist"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/investigatesData -->
+
+    <owl:ObjectProperty rdf:about="&ontology;investigatesData">
+        <rdfs:domain rdf:resource="&ontology;Biomedical_investigation"/>
+        <rdfs:range rdf:resource="&ontology;Data"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/involvedInFE -->
+
+    <owl:ObjectProperty rdf:about="&ontology;involvedInFE"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/parameterOfAE -->
+
+    <owl:ObjectProperty rdf:about="&ontology;parameterOfAE">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&ontology;calculatedFrom"/>
+            <rdf:Description rdf:about="&ontology;representsAE"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/partOf -->
+
+    <owl:ObjectProperty rdf:about="&ontology;partOf">
+        <rdfs:range rdf:resource="&ontology;Anatomical_entity"/>
+        <rdfs:domain rdf:resource="&ontology;Anatomical_entity"/>
+        <owl:inverseOf rdf:resource="&ontology;hasPart"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/performedWith -->
+
+    <owl:ObjectProperty rdf:about="&ontology;performedWith">
+        <rdfs:range rdf:resource="&ontology;Acquisition_protocol"/>
+        <rdfs:domain rdf:resource="&ontology;Acquisition_session"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/representsAE -->
+
+    <owl:ObjectProperty rdf:about="&ontology;representsAE">
+        <rdfs:range rdf:resource="&ontology;Anatomical_entity"/>
+        <rdfs:domain rdf:resource="&ontology;Data"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/undergoes -->
+
+    <owl:ObjectProperty rdf:about="&ontology;undergoes">
+        <rdfs:range rdf:resource="&ontology;Acquisition_session"/>
+        <rdfs:domain rdf:resource="&ontology;Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasAcquisitionDate -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasAcquisitionDate"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasAge -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasAge"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasAttenuationCoefficientValueMax -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasAttenuationCoefficientValueMax"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasAttenuationCoefficientValueMin -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasAttenuationCoefficientValueMin"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasBiologicalScale -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasBiologicalScale">
+        <rdfs:domain rdf:resource="&ontology;Data"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasChemicalAgent -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasChemicalAgent"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasCrossSectionalPixelSize -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasCrossSectionalPixelSize"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasCurrent -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasCurrent"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasDataRepresentation -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasDataRepresentation"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasDeviceIdentification -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasDeviceIdentification"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasExposureTime -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasExposureTime"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasFileLocation -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasFileLocation"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasFileType -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasFileType"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasGender -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasGender"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasLifestyle -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasLifestyle"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasMagneticFieldStrength -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasMagneticFieldStrength"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasMeniscusLocation -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasMeniscusLocation"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasMeniscusPart -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasMeniscusPart"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasMethodology -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasMethodology"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasModality -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasModality"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasNumberOfSlices -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasNumberOfSlices"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasPatientActivity -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasPatientActivity"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasPatientPosition -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasPatientPosition"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasPerformer -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasPerformer"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasSex -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasSex"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasSliceThickness -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasSliceThickness"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasSpatiotemporalScale -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasSpatiotemporalScale"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasTechnique -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasTechnique"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasTemperature -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasTemperature"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasThresholdValueMax -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasThresholdValueMax"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasThresholdValueMin -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasThresholdValueMin"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasTimestamp -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasTimestamp"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasVisualizationTechnique -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasVisualizationTechnique">
+        <rdfs:domain rdf:resource="&ontology;Data"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/hasVoltage -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;hasVoltage"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/isAnonymised -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;isAnonymised"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/mayHintOnDPF -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;mayHintOnDPF"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/mayHintOnSOE -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;mayHintOnSOE"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/mayInterestBI -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;mayInterestBI"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/mayInterestSpecialist -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;mayInterestSpecialist"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/mayRepresentAE -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;mayRepresentAE"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Acquired_data -->
+
+    <owl:Class rdf:about="&ontology;Acquired_data">
+        <rdfs:label>Acquired data</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&ontology;Data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Acquisition_protocol -->
+
+    <owl:Class rdf:about="&ontology;Acquisition_protocol">
+        <rdfs:label>Acquisition protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Acquisition_session -->
+
+    <owl:Class rdf:about="&ontology;Acquisition_session"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Alteration_in_gait_pattern -->
+
+    <owl:Class rdf:about="&ontology;Alteration_in_gait_pattern">
+        <rdfs:subClassOf rdf:resource="&ontology;Degradation_process_feature"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Joint_stiffness"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Joint_use_range_of_motion"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Anabolic_catabolic_reactivation -->
+
+    <owl:Class rdf:about="&ontology;Anabolic_catabolic_reactivation">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Disruption_of_macromolecular_content"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Anatomical_cluster -->
+
+    <owl:Class rdf:about="&ontology;Anatomical_cluster">
+        <rdfs:subClassOf rdf:resource="&ontology;Anatomical_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Anatomical_entity -->
+
+    <owl:Class rdf:about="&ontology;Anatomical_entity"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Angle_of_insertion -->
+
+    <owl:Class rdf:about="&ontology;Angle_of_insertion">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Ankle -->
+
+    <owl:Class rdf:about="&ontology;Ankle">
+        <rdfs:subClassOf rdf:resource="&ontology;Subdivision_of_cardinal_body_part"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Anterior_cruciate -->
+
+    <owl:Class rdf:about="&ontology;Anterior_cruciate">
+        <rdfs:subClassOf rdf:resource="&ontology;Ligament_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Articular_cartilage -->
+
+    <owl:Class rdf:about="&ontology;Articular_cartilage">
+        <rdfs:subClassOf rdf:resource="&ontology;Cartilage_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Articularis_genu -->
+
+    <owl:Class rdf:about="&ontology;Articularis_genu">
+        <rdfs:subClassOf rdf:resource="&ontology;Muscle_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Biceps_femoris -->
+
+    <owl:Class rdf:about="&ontology;Biceps_femoris">
+        <rdfs:subClassOf rdf:resource="&ontology;Muscle_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Biological_macromolecule -->
+
+    <owl:Class rdf:about="&ontology;Biological_macromolecule">
+        <rdfs:subClassOf rdf:resource="&ontology;Anatomical_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Biomechanical_change -->
+
+    <owl:Class rdf:about="&ontology;Biomechanical_change">
+        <rdfs:subClassOf rdf:resource="&ontology;Degradation_process_feature"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesDPF"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Loss_of_biomechanical_function"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Biomechanical_function -->
+
+    <owl:Class rdf:about="&ontology;Biomechanical_function">
+        <rdfs:subClassOf rdf:resource="&ontology;Biomedical_investigation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Biomedical_engineer -->
+
+    <owl:Class rdf:about="&ontology;Biomedical_engineer">
+        <rdfs:subClassOf rdf:resource="&ontology;Specialist"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Biomedical_investigation -->
+
+    <owl:Class rdf:about="&ontology;Biomedical_investigation"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Blood_flow -->
+
+    <owl:Class rdf:about="&ontology;Blood_flow">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Bone -->
+
+    <owl:Class rdf:about="&ontology;Bone">
+        <rdfs:subClassOf rdf:resource="&ontology;Cavitated_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Bone_erosion -->
+
+    <owl:Class rdf:about="&ontology;Bone_erosion">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Joint_stiffness"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Bone_of_femur -->
+
+    <owl:Class rdf:about="&ontology;Bone_of_femur">
+        <rdfs:subClassOf rdf:resource="&ontology;Bone_tissue"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Bone_of_fibula -->
+
+    <owl:Class rdf:about="&ontology;Bone_of_fibula">
+        <rdfs:subClassOf rdf:resource="&ontology;Bone_tissue"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Bone_of_patella -->
+
+    <owl:Class rdf:about="&ontology;Bone_of_patella">
+        <rdfs:subClassOf rdf:resource="&ontology;Bone_tissue"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Bone_of_tibia -->
+
+    <owl:Class rdf:about="&ontology;Bone_of_tibia">
+        <rdfs:subClassOf rdf:resource="&ontology;Bone_tissue"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Bone_tissue -->
+
+    <owl:Class rdf:about="&ontology;Bone_tissue">
+        <rdfs:subClassOf rdf:resource="&ontology;Portion_of_tissue"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Calculated_parameter -->
+
+    <owl:Class rdf:about="&ontology;Calculated_parameter"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cardinal_organ_part -->
+
+    <owl:Class rdf:about="&ontology;Cardinal_organ_part">
+        <rdfs:subClassOf rdf:resource="&ontology;Anatomical_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cartilage_fissure -->
+
+    <owl:Class rdf:about="&ontology;Cartilage_fissure">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Joint_stiffness"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cartilage_of_bone -->
+
+    <owl:Class rdf:about="&ontology;Cartilage_of_bone">
+        <rdfs:subClassOf rdf:resource="&ontology;Portion_of_tissue"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cartilage_of_femur -->
+
+    <owl:Class rdf:about="&ontology;Cartilage_of_femur">
+        <rdfs:subClassOf rdf:resource="&ontology;Cartilage_of_bone"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cartilage_of_fibula -->
+
+    <owl:Class rdf:about="&ontology;Cartilage_of_fibula">
+        <rdfs:subClassOf rdf:resource="&ontology;Cartilage_of_bone"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cartilage_of_tibia -->
+
+    <owl:Class rdf:about="&ontology;Cartilage_of_tibia">
+        <rdfs:subClassOf rdf:resource="&ontology;Cartilage_of_bone"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cartilage_organ -->
+
+    <owl:Class rdf:about="&ontology;Cartilage_organ">
+        <rdfs:subClassOf rdf:resource="&ontology;Solid_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cartilage_thickness_map -->
+
+    <owl:Class rdf:about="&ontology;Cartilage_thickness_map">
+        <rdfs:subClassOf rdf:resource="&ontology;Processed_data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cartilage_thinning -->
+
+    <owl:Class rdf:about="&ontology;Cartilage_thinning">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Joint_stiffness"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cavitated_organ -->
+
+    <owl:Class rdf:about="&ontology;Cavitated_organ">
+        <rdfs:subClassOf rdf:resource="&ontology;Organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cell -->
+
+    <owl:Class rdf:about="&ontology;Cell">
+        <rdfs:subClassOf rdf:resource="&ontology;Anatomical_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cell_dedifferentiation -->
+
+    <owl:Class rdf:about="&ontology;Cell_dedifferentiation">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Disruption_of_macromolecular_content"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cell_distribution -->
+
+    <owl:Class rdf:about="&ontology;Cell_distribution">
+        <rdfs:subClassOf rdf:resource="&ontology;Processed_data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cell_number -->
+
+    <owl:Class rdf:about="&ontology;Cell_number">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cell_viability -->
+
+    <owl:Class rdf:about="&ontology;Cell_viability">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Disruption_of_macromolecular_content"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cell_viability_rate -->
+
+    <owl:Class rdf:about="&ontology;Cell_viability_rate">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cellular_behavior -->
+
+    <owl:Class rdf:about="&ontology;Cellular_behavior">
+        <rdfs:subClassOf rdf:resource="&ontology;Biomedical_investigation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cellular_behavior_protocol -->
+
+    <owl:Class rdf:about="&ontology;Cellular_behavior_protocol">
+        <rdfs:subClassOf rdf:resource="&ontology;Acquisition_protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cellular_change -->
+
+    <owl:Class rdf:about="&ontology;Cellular_change">
+        <rdfs:subClassOf rdf:resource="&ontology;Degradation_process_feature"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Hypertrophy"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Cell_dedifferentiation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Anabolic_catabolic_reactivation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesDPF"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Biomechanical_change"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Cell_viability"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Computer_scientist -->
+
+    <owl:Class rdf:about="&ontology;Computer_scientist">
+        <rdfs:subClassOf rdf:resource="&ontology;Specialist"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Cross_sectional_area -->
+
+    <owl:Class rdf:about="&ontology;Cross_sectional_area">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/DICOM_viewer -->
+
+    <owl:Class rdf:about="&ontology;DICOM_viewer">
+        <rdfs:subClassOf rdf:resource="&ontology;Visualization_technique"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Data -->
+
+    <owl:Class rdf:about="&ontology;Data">
+        <rdfs:label>Data</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Data_representation -->
+
+    <owl:Class rdf:about="&ontology;Data_representation"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Degradation_process_feature -->
+
+    <owl:Class rdf:about="&ontology;Degradation_process_feature"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Diminuition_of_hydraulic_pressure -->
+
+    <owl:Class rdf:about="&ontology;Diminuition_of_hydraulic_pressure">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Cartilage_thinning"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Cartilage_fissure"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Disruption_of_macromolecular_content -->
+
+    <owl:Class rdf:about="&ontology;Disruption_of_macromolecular_content">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Hyperhydration"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Tissue_softening"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Swelling"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Dynamic_MRI_protocol -->
+
+    <owl:Class rdf:about="&ontology;Dynamic_MRI_protocol">
+        <rdfs:subClassOf rdf:resource="&ontology;MRI_protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/EC_chemical_composition -->
+
+    <owl:Class rdf:about="&ontology;EC_chemical_composition">
+        <rdfs:subClassOf rdf:resource="&ontology;Processed_data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/EMG_signal -->
+
+    <owl:Class rdf:about="&ontology;EMG_signal">
+        <rdfs:subClassOf rdf:resource="&ontology;Muscle_activation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Erosion_score -->
+
+    <owl:Class rdf:about="&ontology;Erosion_score">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Fascicle_length -->
+
+    <owl:Class rdf:about="&ontology;Fascicle_length">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Femoral_cartilage -->
+
+    <owl:Class rdf:about="&ontology;Femoral_cartilage">
+        <rdfs:subClassOf rdf:resource="&ontology;Articular_cartilage"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Femur -->
+
+    <owl:Class rdf:about="&ontology;Femur">
+        <rdfs:subClassOf rdf:resource="&ontology;Long_bone"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;partOf"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Lower_limb"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Femur_length -->
+
+    <owl:Class rdf:about="&ontology;Femur_length">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Length"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&ontology;parameterOfAE"/>
+                        <owl:someValuesFrom rdf:resource="&ontology;Femur"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Fibula -->
+
+    <owl:Class rdf:about="&ontology;Fibula">
+        <rdfs:subClassOf rdf:resource="&ontology;Long_bone"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;partOf"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Lower_limb"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Fibular_collateral -->
+
+    <owl:Class rdf:about="&ontology;Fibular_collateral">
+        <rdfs:subClassOf rdf:resource="&ontology;Ligament_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Functional_entity -->
+
+    <owl:Class rdf:about="&ontology;Functional_entity"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Functions_of_the_joints_and_bones -->
+
+    <owl:Class rdf:about="&ontology;Functions_of_the_joints_and_bones">
+        <rdfs:subClassOf rdf:resource="&ontology;Functional_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/GAG_chemical_composition -->
+
+    <owl:Class rdf:about="&ontology;GAG_chemical_composition">
+        <rdfs:subClassOf rdf:resource="&ontology;EC_chemical_composition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Gait_analysis -->
+
+    <owl:Class rdf:about="&ontology;Gait_analysis">
+        <rdfs:subClassOf rdf:resource="&ontology;Biomedical_investigation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Gastrocnemius -->
+
+    <owl:Class rdf:about="&ontology;Gastrocnemius">
+        <rdfs:subClassOf rdf:resource="&ontology;Muscle_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/General_physician -->
+
+    <owl:Class rdf:about="&ontology;General_physician">
+        <rdfs:subClassOf rdf:resource="&ontology;Specialist"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Ground_reaction_forces -->
+
+    <owl:Class rdf:about="&ontology;Ground_reaction_forces">
+        <rdfs:subClassOf rdf:resource="&ontology;Kinetics_and_kinematics"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Histology -->
+
+    <owl:Class rdf:about="&ontology;Histology">
+        <rdfs:subClassOf rdf:resource="&ontology;Cellular_behavior_protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Hyperhydration -->
+
+    <owl:Class rdf:about="&ontology;Hyperhydration">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Diminuition_of_hydraulic_pressure"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Hypertrophy -->
+
+    <owl:Class rdf:about="&ontology;Hypertrophy">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Disruption_of_macromolecular_content"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Image_viewer -->
+
+    <owl:Class rdf:about="&ontology;Image_viewer">
+        <rdfs:subClassOf rdf:resource="&ontology;Visualization_technique"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/InfoVis -->
+
+    <owl:Class rdf:about="&ontology;InfoVis">
+        <rdfs:subClassOf rdf:resource="&ontology;Visualization_technique"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/InfoVis_bar -->
+
+    <owl:Class rdf:about="&ontology;InfoVis_bar">
+        <rdfs:subClassOf rdf:resource="&ontology;InfoVis"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/InfoVis_line -->
+
+    <owl:Class rdf:about="&ontology;InfoVis_line">
+        <rdfs:subClassOf rdf:resource="&ontology;InfoVis"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Interconnectivity -->
+
+    <owl:Class rdf:about="&ontology;Interconnectivity">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Joint_moments -->
+
+    <owl:Class rdf:about="&ontology;Joint_moments">
+        <rdfs:subClassOf rdf:resource="&ontology;Kinetics_and_kinematics"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Joint_rotations -->
+
+    <owl:Class rdf:about="&ontology;Joint_rotations">
+        <rdfs:subClassOf rdf:resource="&ontology;Kinetics_and_kinematics"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Joint_stiffness -->
+
+    <owl:Class rdf:about="&ontology;Joint_stiffness">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Joint_use_range_of_motion"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Joint_use_range_of_motion -->
+
+    <owl:Class rdf:about="&ontology;Joint_use_range_of_motion">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Jumping -->
+
+    <owl:Class rdf:about="&ontology;Jumping">
+        <rdfs:subClassOf rdf:resource="&ontology;Movement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Kinetics_and_kinematics -->
+
+    <owl:Class rdf:about="&ontology;Kinetics_and_kinematics">
+        <rdfs:subClassOf rdf:resource="&ontology;Processed_data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Knee -->
+
+    <owl:Class rdf:about="&ontology;Knee">
+        <rdfs:subClassOf rdf:resource="&ontology;Subdivision_of_cardinal_body_part"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Knee_angles -->
+
+    <owl:Class rdf:about="&ontology;Knee_angles">
+        <rdfs:subClassOf rdf:resource="&ontology;Kinetics_and_kinematics"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Knee_in_extension -->
+
+    <owl:Class rdf:about="&ontology;Knee_in_extension">
+        <rdfs:subClassOf rdf:resource="&ontology;Posture"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Knee_in_external_rotation -->
+
+    <owl:Class rdf:about="&ontology;Knee_in_external_rotation">
+        <rdfs:subClassOf rdf:resource="&ontology;Posture"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Knee_in_flexion -->
+
+    <owl:Class rdf:about="&ontology;Knee_in_flexion">
+        <rdfs:subClassOf rdf:resource="&ontology;Posture"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Knee_in_internal_rotation -->
+
+    <owl:Class rdf:about="&ontology;Knee_in_internal_rotation">
+        <rdfs:subClassOf rdf:resource="&ontology;Posture"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Knee_joint -->
+
+    <owl:Class rdf:about="&ontology;Knee_joint">
+        <rdfs:subClassOf rdf:resource="&ontology;Anatomical_cluster"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Lateral_meniscus -->
+
+    <owl:Class rdf:about="&ontology;Lateral_meniscus">
+        <rdfs:subClassOf rdf:resource="&ontology;Cartilage_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Leg -->
+
+    <owl:Class rdf:about="&ontology;Leg">
+        <rdfs:subClassOf rdf:resource="&ontology;Subdivision_of_cardinal_body_part"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Length -->
+
+    <owl:Class rdf:about="&ontology;Length">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Ligament_organ -->
+
+    <owl:Class rdf:about="&ontology;Ligament_organ">
+        <rdfs:subClassOf rdf:resource="&ontology;Solid_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Live_Dead_cell_assay -->
+
+    <owl:Class rdf:about="&ontology;Live_Dead_cell_assay">
+        <rdfs:subClassOf rdf:resource="&ontology;Cellular_behavior_protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Long_bone -->
+
+    <owl:Class rdf:about="&ontology;Long_bone">
+        <rdfs:subClassOf rdf:resource="&ontology;Bone"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Loss_of_biomechanical_function -->
+
+    <owl:Class rdf:about="&ontology;Loss_of_biomechanical_function">
+        <rdfs:subClassOf rdf:resource="&ontology;Degradation_process_feature"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Disruption_of_macromolecular_content"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesDPF"/>
+                <owl:someValuesFrom rdf:resource="&ontology;MRI_evidence"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Hyperhydration"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Swelling"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Diminuition_of_hydraulic_pressure"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Tissue_softening"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Lower_limb -->
+
+    <owl:Class rdf:about="&ontology;Lower_limb">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;hasPart"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="&ontology;Femur"/>
+                            <rdf:Description rdf:about="&ontology;Fibula"/>
+                            <rdf:Description rdf:about="&ontology;Patella"/>
+                            <rdf:Description rdf:about="&ontology;Tibia"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&ontology;Subdivision_of_cardinal_body_part"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/MRI_data -->
+
+    <owl:Class rdf:about="&ontology;MRI_data">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Data"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&ontology;dataProducedWithProtocol"/>
+                        <owl:someValuesFrom rdf:resource="&ontology;MRI_protocol"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/MRI_evidence -->
+
+    <owl:Class rdf:about="&ontology;MRI_evidence">
+        <rdfs:subClassOf rdf:resource="&ontology;Degradation_process_feature"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Cartilage_fissure"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesDPF"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Alteration_in_gait_pattern"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;evidencedBySOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Cartilage_thinning"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/MRI_protocol -->
+
+    <owl:Class rdf:about="&ontology;MRI_protocol">
+        <rdfs:subClassOf rdf:resource="&ontology;Acquisition_protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Macro_scale -->
+
+    <owl:Class rdf:about="&ontology;Macro_scale">
+        <rdfs:subClassOf rdf:resource="&ontology;Spatiotemporal_scale"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Manifold_surface_mesh -->
+
+    <owl:Class rdf:about="&ontology;Manifold_surface_mesh">
+        <rdfs:subClassOf rdf:resource="&ontology;Data_representation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Mechanical_pressure_distribution_in_joints -->
+
+    <owl:Class rdf:about="&ontology;Mechanical_pressure_distribution_in_joints">
+        <rdfs:subClassOf rdf:resource="&ontology;Functions_of_the_joints_and_bones"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Mechanical_properties_of_tissue -->
+
+    <owl:Class rdf:about="&ontology;Mechanical_properties_of_tissue">
+        <rdfs:subClassOf rdf:resource="&ontology;Processed_data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Medial_meniscus -->
+
+    <owl:Class rdf:about="&ontology;Medial_meniscus">
+        <rdfs:subClassOf rdf:resource="&ontology;Cartilage_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Medium_scale -->
+
+    <owl:Class rdf:about="&ontology;Medium_scale">
+        <rdfs:subClassOf rdf:resource="&ontology;Spatiotemporal_scale"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Medium_scale_data -->
+
+    <owl:Class rdf:about="&ontology;Medium_scale_data">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Data"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&ontology;hasSpatiotemporalScale"/>
+                        <owl:hasValue>Medium scale</owl:hasValue>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Meniscus_tissue -->
+
+    <owl:Class rdf:about="&ontology;Meniscus_tissue">
+        <rdfs:subClassOf rdf:resource="&ontology;Portion_of_tissue"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Meniscus_tissue_data -->
+
+    <owl:Class rdf:about="&ontology;Meniscus_tissue_data">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Data"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&ontology;representsAE"/>
+                        <owl:someValuesFrom rdf:resource="&ontology;Meniscus_tissue"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Metabolism -->
+
+    <owl:Class rdf:about="&ontology;Metabolism">
+        <rdfs:subClassOf rdf:resource="&ontology;Muscle_activation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Micro_scale -->
+
+    <owl:Class rdf:about="&ontology;Micro_scale">
+        <rdfs:subClassOf rdf:resource="&ontology;Spatiotemporal_scale"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/MoCAP_protocol -->
+
+    <owl:Class rdf:about="&ontology;MoCAP_protocol">
+        <rdfs:subClassOf rdf:resource="&ontology;Acquisition_protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Molecular_biologist -->
+
+    <owl:Class rdf:about="&ontology;Molecular_biologist">
+        <rdfs:subClassOf rdf:resource="&ontology;Specialist"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Motion_tracking_data -->
+
+    <owl:Class rdf:about="&ontology;Motion_tracking_data">
+        <rdfs:subClassOf rdf:resource="&ontology;Kinetics_and_kinematics"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Movement -->
+
+    <owl:Class rdf:about="&ontology;Movement">
+        <rdfs:subClassOf rdf:resource="&ontology;Functional_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Movie -->
+
+    <owl:Class rdf:about="&ontology;Movie">
+        <rdfs:subClassOf rdf:resource="&ontology;Data_representation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Movie_viewer -->
+
+    <owl:Class rdf:about="&ontology;Movie_viewer">
+        <rdfs:subClassOf rdf:resource="&ontology;Visualization_technique"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Muscle_activation -->
+
+    <owl:Class rdf:about="&ontology;Muscle_activation">
+        <rdfs:subClassOf rdf:resource="&ontology;Processed_data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Muscle_data -->
+
+    <owl:Class rdf:about="&ontology;Muscle_data">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Data"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&ontology;representsAE"/>
+                        <owl:someValuesFrom rdf:resource="&ontology;Muscle_organ"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Muscle_fiber_group -->
+
+    <owl:Class rdf:about="&ontology;Muscle_fiber_group">
+        <rdfs:subClassOf rdf:resource="&ontology;Cardinal_organ_part"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Muscle_organ -->
+
+    <owl:Class rdf:about="&ontology;Muscle_organ">
+        <rdfs:subClassOf rdf:resource="&ontology;Solid_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Muscle_vascularization -->
+
+    <owl:Class rdf:about="&ontology;Muscle_vascularization">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Muscle_volume -->
+
+    <owl:Class rdf:about="&ontology;Muscle_volume">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Volume"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&ontology;parameterOfAE"/>
+                        <owl:someValuesFrom rdf:resource="&ontology;Muscle_organ"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&ontology;Volume"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Nano_indentation -->
+
+    <owl:Class rdf:about="&ontology;Nano_indentation">
+        <rdfs:subClassOf rdf:resource="&ontology;Cellular_behavior_protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Organ -->
+
+    <owl:Class rdf:about="&ontology;Organ">
+        <rdfs:subClassOf rdf:resource="&ontology;Anatomical_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/OrganScaleData -->
+
+    <owl:Class rdf:about="&ontology;OrganScaleData">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Data"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="&ontology;representsAE"/>
+                                <owl:someValuesFrom>
+                                    <owl:Class>
+                                        <owl:unionOf rdf:parseType="Collection">
+                                            <rdf:Description rdf:about="&ontology;Organ"/>
+                                            <rdf:Description rdf:about="&ontology;Subdivision_of_cardinal_body_part"/>
+                                        </owl:unionOf>
+                                    </owl:Class>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="&ontology;hasBiologicalScale"/>
+                                <owl:hasValue>organ</owl:hasValue>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Orthopedist -->
+
+    <owl:Class rdf:about="&ontology;Orthopedist">
+        <rdfs:subClassOf rdf:resource="&ontology;Specialist"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/PCR_Anabolic_Catabolic -->
+
+    <owl:Class rdf:about="&ontology;PCR_Anabolic_Catabolic">
+        <rdfs:subClassOf rdf:resource="&ontology;Cellular_behavior_protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/PET_data -->
+
+    <owl:Class rdf:about="&ontology;PET_data">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Data"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&ontology;dataProducedWithProtocol"/>
+                        <owl:someValuesFrom rdf:resource="&ontology;PET_protocol"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/PET_protocol -->
+
+    <owl:Class rdf:about="&ontology;PET_protocol">
+        <rdfs:subClassOf rdf:resource="&ontology;Acquisition_protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Patella -->
+
+    <owl:Class rdf:about="&ontology;Patella">
+        <rdfs:subClassOf rdf:resource="&ontology;Short_bone"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;partOf"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Lower_limb"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Patient -->
+
+    <owl:Class rdf:about="&ontology;Patient"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Pennation_angle -->
+
+    <owl:Class rdf:about="&ontology;Pennation_angle">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Porosity -->
+
+    <owl:Class rdf:about="&ontology;Porosity">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Portion_of_tissue -->
+
+    <owl:Class rdf:about="&ontology;Portion_of_tissue">
+        <rdfs:subClassOf rdf:resource="&ontology;Anatomical_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Posterior_cruciate -->
+
+    <owl:Class rdf:about="&ontology;Posterior_cruciate">
+        <rdfs:subClassOf rdf:resource="&ontology;Ligament_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Posterior_vascular_meniscus_data -->
+
+    <owl:Class rdf:about="&ontology;Posterior_vascular_meniscus_data">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Data"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&ontology;representsAE"/>
+                        <owl:someValuesFrom rdf:resource="&ontology;Meniscus_tissue"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&ontology;hasMeniscusLocation"/>
+                        <owl:hasValue>posterior</owl:hasValue>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&ontology;hasMeniscusPart"/>
+                        <owl:hasValue>vascular</owl:hasValue>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Posture -->
+
+    <owl:Class rdf:about="&ontology;Posture">
+        <rdfs:subClassOf rdf:resource="&ontology;Functional_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Processed_data -->
+
+    <owl:Class rdf:about="&ontology;Processed_data">
+        <rdfs:label>Processed data</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&ontology;Data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Quadriceps_femoris -->
+
+    <owl:Class rdf:about="&ontology;Quadriceps_femoris">
+        <rdfs:subClassOf rdf:resource="&ontology;Muscle_organ"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;involvedInFE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Stability_of_knee_joint"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Radiation_absorption -->
+
+    <owl:Class rdf:about="&ontology;Radiation_absorption">
+        <rdfs:subClassOf rdf:resource="&ontology;Processed_data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Radiologist -->
+
+    <owl:Class rdf:about="&ontology;Radiologist">
+        <rdfs:subClassOf rdf:resource="&ontology;Specialist"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Raster_image -->
+
+    <owl:Class rdf:about="&ontology;Raster_image">
+        <rdfs:subClassOf rdf:resource="&ontology;Data_representation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Raster_image_2D -->
+
+    <owl:Class rdf:about="&ontology;Raster_image_2D">
+        <rdfs:subClassOf rdf:resource="&ontology;Raster_image"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Raster_image_3D -->
+
+    <owl:Class rdf:about="&ontology;Raster_image_3D">
+        <rdfs:subClassOf rdf:resource="&ontology;Raster_image"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Rectus_femoris -->
+
+    <owl:Class rdf:about="&ontology;Rectus_femoris">
+        <rdfs:subClassOf rdf:resource="&ontology;Muscle_organ"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;involvedInFE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Stability_of_knee_joint"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Running -->
+
+    <owl:Class rdf:about="&ontology;Running">
+        <rdfs:subClassOf rdf:resource="&ontology;Movement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Segmentation -->
+
+    <owl:Class rdf:about="&ontology;Segmentation">
+        <rdfs:subClassOf rdf:resource="&ontology;Processed_data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Setimage_viewer -->
+
+    <owl:Class rdf:about="&ontology;Setimage_viewer">
+        <rdfs:subClassOf rdf:resource="&ontology;Visualization_technique"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Short_bone -->
+
+    <owl:Class rdf:about="&ontology;Short_bone">
+        <rdfs:subClassOf rdf:resource="&ontology;Bone"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Signal -->
+
+    <owl:Class rdf:about="&ontology;Signal">
+        <rdfs:subClassOf rdf:resource="&ontology;Data_representation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Soft_tissue_loading -->
+
+    <owl:Class rdf:about="&ontology;Soft_tissue_loading">
+        <rdfs:subClassOf rdf:resource="&ontology;Biomedical_investigation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Solid_organ -->
+
+    <owl:Class rdf:about="&ontology;Solid_organ">
+        <rdfs:subClassOf rdf:resource="&ontology;Organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Source_of_evidence -->
+
+    <owl:Class rdf:about="&ontology;Source_of_evidence"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Spatiotemporal_scale -->
+
+    <owl:Class rdf:about="&ontology;Spatiotemporal_scale"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Specialist -->
+
+    <owl:Class rdf:about="&ontology;Specialist"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Stability_of_knee_joint -->
+
+    <owl:Class rdf:about="&ontology;Stability_of_knee_joint">
+        <rdfs:subClassOf rdf:resource="&ontology;Functions_of_the_joints_and_bones"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Static_MRI_protocol -->
+
+    <owl:Class rdf:about="&ontology;Static_MRI_protocol">
+        <rdfs:subClassOf rdf:resource="&ontology;MRI_protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Subdivision_of_cardinal_body_part -->
+
+    <owl:Class rdf:about="&ontology;Subdivision_of_cardinal_body_part">
+        <rdfs:subClassOf rdf:resource="&ontology;Anatomical_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Surface -->
+
+    <owl:Class rdf:about="&ontology;Surface">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Surface_curvature_map -->
+
+    <owl:Class rdf:about="&ontology;Surface_curvature_map">
+        <rdfs:subClassOf rdf:resource="&ontology;Processed_data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Surface_roughness_map -->
+
+    <owl:Class rdf:about="&ontology;Surface_roughness_map">
+        <rdfs:subClassOf rdf:resource="&ontology;Processed_data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Swelling -->
+
+    <owl:Class rdf:about="&ontology;Swelling">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Diminuition_of_hydraulic_pressure"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Tendon -->
+
+    <owl:Class rdf:about="&ontology;Tendon">
+        <rdfs:subClassOf rdf:resource="&ontology;Cardinal_organ_part"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Thigh -->
+
+    <owl:Class rdf:about="&ontology;Thigh">
+        <rdfs:subClassOf rdf:resource="&ontology;Subdivision_of_cardinal_body_part"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Tibia -->
+
+    <owl:Class rdf:about="&ontology;Tibia">
+        <rdfs:subClassOf rdf:resource="&ontology;Long_bone"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;partOf"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Lower_limb"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Tibial_cartilage -->
+
+    <owl:Class rdf:about="&ontology;Tibial_cartilage">
+        <rdfs:subClassOf rdf:resource="&ontology;Articular_cartilage"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Tibial_collateral -->
+
+    <owl:Class rdf:about="&ontology;Tibial_collateral">
+        <rdfs:subClassOf rdf:resource="&ontology;Ligament_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Tibialis_anterior -->
+
+    <owl:Class rdf:about="&ontology;Tibialis_anterior">
+        <rdfs:subClassOf rdf:resource="&ontology;Muscle_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Tissue_engineer -->
+
+    <owl:Class rdf:about="&ontology;Tissue_engineer">
+        <rdfs:subClassOf rdf:resource="&ontology;Specialist"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Tissue_softening -->
+
+    <owl:Class rdf:about="&ontology;Tissue_softening">
+        <rdfs:subClassOf rdf:resource="&ontology;Source_of_evidence"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;causesSOE"/>
+                <owl:someValuesFrom rdf:resource="&ontology;Diminuition_of_hydraulic_pressure"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Trabecular_thickness -->
+
+    <owl:Class rdf:about="&ontology;Trabecular_thickness">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/VTK_viewer -->
+
+    <owl:Class rdf:about="&ontology;VTK_viewer">
+        <rdfs:subClassOf rdf:resource="&ontology;Visualization_technique"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Vastus_intermedius -->
+
+    <owl:Class rdf:about="&ontology;Vastus_intermedius">
+        <rdfs:subClassOf rdf:resource="&ontology;Muscle_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Vastus_lateralis -->
+
+    <owl:Class rdf:about="&ontology;Vastus_lateralis">
+        <rdfs:subClassOf rdf:resource="&ontology;Muscle_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Vastus_medialis -->
+
+    <owl:Class rdf:about="&ontology;Vastus_medialis">
+        <rdfs:subClassOf rdf:resource="&ontology;Muscle_organ"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Visualization_technique -->
+
+    <owl:Class rdf:about="&ontology;Visualization_technique"/>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Volume -->
+
+    <owl:Class rdf:about="&ontology;Volume">
+        <rdfs:subClassOf rdf:resource="&ontology;Calculated_parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Walking -->
+
+    <owl:Class rdf:about="&ontology;Walking">
+        <rdfs:subClassOf rdf:resource="&ontology;Movement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Water_chemical_composition -->
+
+    <owl:Class rdf:about="&ontology;Water_chemical_composition">
+        <rdfs:subClassOf rdf:resource="&ontology;EC_chemical_composition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/microCT -->
+
+    <owl:Class rdf:about="&ontology;microCT">
+        <rdfs:subClassOf rdf:resource="&ontology;Cellular_behavior_protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Acq_session_1 -->
+
+    <owl:NamedIndividual rdf:about="&ontology;Acq_session_1">
+        <rdf:type rdf:resource="&ontology;Acquisition_session"/>
+        <ontology:performedWith rdf:resource="&ontology;Dixon_fat"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Acq_session_2 -->
+
+    <owl:NamedIndividual rdf:about="&ontology;Acq_session_2">
+        <rdf:type rdf:resource="&ontology;Acquisition_session"/>
+        <ontology:performedWith rdf:resource="&ontology;MoCAP_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Dixon_fat -->
+
+    <owl:NamedIndividual rdf:about="&ontology;Dixon_fat">
+        <rdf:type rdf:resource="&ontology;Static_MRI_protocol"/>
+        <ontology:acquires rdf:resource="&ontology;MRI_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/MRI_1 -->
+
+    <owl:NamedIndividual rdf:about="&ontology;MRI_1">
+        <rdf:type rdf:resource="&ontology;Acquired_data"/>
+        <ontology:mayHintOnSOE>Cartilage fissure</ontology:mayHintOnSOE>
+        <ontology:mayHintOnSOE>Cartilage thinning</ontology:mayHintOnSOE>
+        <ontology:mayRepresentAE>Femur</ontology:mayRepresentAE>
+        <ontology:mayRepresentAE>Knee</ontology:mayRepresentAE>
+        <ontology:mayInterestBI>Soft tissue loading</ontology:mayInterestBI>
+        <ontology:mayHintOnDPF>MRI evidence</ontology:mayHintOnDPF>
+        <ontology:mayRepresentAE>Tibia</ontology:mayRepresentAE>
+        <ontology:mayInterestBI>Gait analysis</ontology:mayInterestBI>
+        <ontology:hasSpatiotemporalScale>Medium scale</ontology:hasSpatiotemporalScale>
+        <ontology:hasDataRepresentation>Raster image 3D</ontology:hasDataRepresentation>
+        <ontology:hasVisualizationTechnique>DICOM viewer</ontology:hasVisualizationTechnique>
+        <ontology:mayInterestSpecialist>Radiologist</ontology:mayInterestSpecialist>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/MSH_subject_1 -->
+
+    <owl:NamedIndividual rdf:about="&ontology;MSH_subject_1">
+        <rdf:type rdf:resource="&ontology;Patient"/>
+        <ontology:undergoes rdf:resource="&ontology;Acq_session_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/MSH_subject_2 -->
+
+    <owl:NamedIndividual rdf:about="&ontology;MSH_subject_2">
+        <rdf:type rdf:resource="&ontology;Patient"/>
+        <ontology:undergoes rdf:resource="&ontology;Acq_session_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/MoCAP_1 -->
+
+    <owl:NamedIndividual rdf:about="&ontology;MoCAP_1">
+        <rdf:type rdf:resource="&ontology;MoCAP_protocol"/>
+        <ontology:acquires rdf:resource="&ontology;Video_seq_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Segmented_femur -->
+
+    <owl:NamedIndividual rdf:about="&ontology;Segmented_femur">
+        <rdf:type rdf:resource="&ontology;Segmentation"/>
+        <ontology:hasSpatiotemporalScale>Medium scale</ontology:hasSpatiotemporalScale>
+        <ontology:mayRepresentAE>Femur</ontology:mayRepresentAE>
+        <ontology:mayInterestBI>Gait analysis</ontology:mayInterestBI>
+        <ontology:hasDataRepresentation>Manifold surface mesh</ontology:hasDataRepresentation>
+        <ontology:hasVisualizationTechnique>VTK viewer</ontology:hasVisualizationTechnique>
+        <ontology:mayHintOnSOE>Bone erosion</ontology:mayHintOnSOE>
+        <ontology:mayInterestSpecialist>Biomedical engineer</ontology:mayInterestSpecialist>
+        <ontology:mayInterestBI>Soft tissue loading</ontology:mayInterestBI>
+        <ontology:mayInterestSpecialist>Radiologist</ontology:mayInterestSpecialist>
+        <ontology:belongsTo rdf:resource="&ontology;MSH_subject_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.multiscalehuman.ch/ontology/Video_seq_1 -->
+
+    <owl:NamedIndividual rdf:about="&ontology;Video_seq_1">
+        <rdf:type rdf:resource="&ontology;Acquired_data"/>
+        <ontology:mayRepresentAE>Tibia</ontology:mayRepresentAE>
+        <ontology:hasVisualizationTechnique>Movie viewer</ontology:hasVisualizationTechnique>
+        <ontology:hasSpatiotemporalScale>Macro scale</ontology:hasSpatiotemporalScale>
+        <ontology:mayRepresentAE>Femur</ontology:mayRepresentAE>
+        <ontology:mayInterestBI>Gait analysis</ontology:mayInterestBI>
+        <ontology:mayHintOnSOE>Joint use range of motion</ontology:mayHintOnSOE>
+        <ontology:mayInterestSpecialist>Biomedical engineer</ontology:mayInterestSpecialist>
+        <ontology:hasDataRepresentation>Movie</ontology:hasDataRepresentation>
+        <ontology:mayHintOnDPF>Alteration in gait pattern</ontology:mayHintOnDPF>
+        <ontology:mayRepresentAE>Gastrocnemius</ontology:mayRepresentAE>
+        <ontology:mayRepresentAE>Rectus femoris</ontology:mayRepresentAE>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
