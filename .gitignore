@@ -1,2 +1,5 @@
 *pyc
 build/*
+**/__pycache__
+**/*egg*
+**/.cache
