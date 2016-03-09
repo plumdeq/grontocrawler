@@ -5,8 +5,24 @@ Utils module, i.e., transformations of strings, urls etc.
 :author: Asan Agibetov
 
 """
+from rdflib import RDF, RDFS, OWL
+from functools import wraps
 
 
+def memo(f):
+    """Memoization for function $f$"""
+    cache = {}
+
+    @wraps(f)
+    def wrap(*args):
+        if args not in cache:
+            cache[args] = f(*args)
+        return cache[args]
+
+    return wrap
+
+
+@memo
 def compute_short_name(resource, g):
     """
     (rdflib.URI, rdflib.Graph) -> string
@@ -14,10 +30,47 @@ def compute_short_name(resource, g):
     resource (rdflib.URI): resource for which we compute superclasses
     g (rdflib.Graph): RDF graph
 
-    """
-    ns, uri, qname = g.compute_qname(resource)
+    Tries to extract label, if the label does not exist, then tries to divide
+    the URI, otherwise simply return the string with the full URI
 
-    return qname.replace("_", " ")
+    """
+    try:
+        label = g.label(resource)
+
+        if not label:
+            ns, uri, qname = g.compute_qname(resource)
+            return qname.replace("_", " ")
+
+        return str(label)
+    except Exception:
+        return str(resource)
+
+
+def triples_for_class(resource, g):
+    """
+    (rdflib.URI) -> [(s, p, o)]
+
+    Extracts the necessary triples for a given class (label, comment etc)
+
+    """
+    triples = []
+
+    if not (resource, RDF.type, OWL.Class) in g:
+        return triples
+
+    # if label is available add it too
+    label = g.label(resource)
+    comment = g.comment(resource)
+
+    if label:
+        triples.append((resource, RDFS.label, label))
+
+    if comment:
+        triples.append((resource, RDFS.comment, comment))
+
+    triples.append((resource, RDF.type, OWL.Class))
+
+    return triples
 
 
 def same_edge_lists(edge_list_1, edge_list_2):

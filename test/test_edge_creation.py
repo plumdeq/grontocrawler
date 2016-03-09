@@ -3,7 +3,7 @@
 Tests edge creation from RDF graph to a graph
 
 """
-from rdflib import RDFS
+from rdflib import RDF, RDFS, OWL
 
 from grontocrawler.entity_mapper import entity_mapper
 from grontocrawler.graph import create_edges
@@ -18,7 +18,8 @@ def test_direct_superclasses(get_test_graph):
     long_bone = entity_mapper.match_entity("Long_bone", g)
 
     # axioms for OWL
-    triples = [(femur, RDFS.subClassOf, long_bone)]
+    triples = [(femur, RDFS.subClassOf, long_bone),
+               (femur, RDF.type, OWL.Class)]
 
     # edges for Graph
     edges = [("Femur", "Long bone", {'relation': 'subClassOf'})]

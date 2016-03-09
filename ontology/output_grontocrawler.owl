@@ -4,31 +4,61 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 >
+  <rdf:Description rdf:nodeID="N3ec3559a56154815b2e93dd68b8b36f7">
+    <owl:onProperty rdf:resource="http://www.multiscalehuman.ch/ontology/partOf"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://www.multiscalehuman.ch/ontology/Lower_limb"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Long_bone">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Bone"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Patella">
+    <rdfs:subClassOf rdf:nodeID="Nc1beb0d7b2194f66af1e3a4fcabcc24a"/>
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Short_bone"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N388eb7e2e1fa42c38594286efda8b2ad">
+    <owl:onProperty rdf:resource="http://www.multiscalehuman.ch/ontology/partOf"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://www.multiscalehuman.ch/ontology/Lower_limb"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Femur">
-    <rdfs:subClassOf rdf:nodeID="N33b0d73977c84120ab762a9776991b77"/>
+    <rdfs:subClassOf rdf:nodeID="N36493c085f5c4ce5b6fe66b5f884bd76"/>
     <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Long_bone"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Cavitated_organ">
     <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Organ"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Organ">
-    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Anatomical_entity"/>
+  <rdf:Description rdf:nodeID="N36493c085f5c4ce5b6fe66b5f884bd76">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://www.multiscalehuman.ch/ontology/Lower_limb"/>
+    <owl:onProperty rdf:resource="http://www.multiscalehuman.ch/ontology/partOf"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Subdivision_of_cardinal_body_part">
-    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Anatomical_entity"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N33b0d73977c84120ab762a9776991b77">
+  <rdf:Description rdf:nodeID="Nc1beb0d7b2194f66af1e3a4fcabcc24a">
     <owl:onProperty rdf:resource="http://www.multiscalehuman.ch/ontology/partOf"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
     <owl:someValuesFrom rdf:resource="http://www.multiscalehuman.ch/ontology/Lower_limb"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Lower_limb">
-    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Subdivision_of_cardinal_body_part"/>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Organ">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Anatomical_entity"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Long_bone">
-    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Bone"/>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Fibula">
+    <rdfs:subClassOf rdf:nodeID="N388eb7e2e1fa42c38594286efda8b2ad"/>
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Long_bone"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Bone">
     <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Cavitated_organ"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Subdivision_of_cardinal_body_part">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Anatomical_entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Lower_limb">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Subdivision_of_cardinal_body_part"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Short_bone">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Bone"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Tibia">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Long_bone"/>
+    <rdfs:subClassOf rdf:nodeID="N3ec3559a56154815b2e93dd68b8b36f7"/>
   </rdf:Description>
 </rdf:RDF>

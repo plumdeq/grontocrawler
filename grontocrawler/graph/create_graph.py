@@ -51,7 +51,8 @@ def get_successors(resource, g):
     """
     # list of functions
     edge_production_rules = [create_edges.get_direct_superclasses,
-                             create_edges.get_r_predecessors]
+                             create_edges.get_r_predecessors,
+                             create_edges.get_r_successors]
 
     # see the docstring
     sucessor_objs = [edge_production_rule(resource, g)
