@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Femur">
+    <rdfs:subClassOf rdf:nodeID="N33b0d73977c84120ab762a9776991b77"/>
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Long_bone"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Cavitated_organ">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Organ"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Organ">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Anatomical_entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Subdivision_of_cardinal_body_part">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Anatomical_entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N33b0d73977c84120ab762a9776991b77">
+    <owl:onProperty rdf:resource="http://www.multiscalehuman.ch/ontology/partOf"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://www.multiscalehuman.ch/ontology/Lower_limb"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Lower_limb">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Subdivision_of_cardinal_body_part"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Long_bone">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Bone"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.multiscalehuman.ch/ontology/Bone">
+    <rdfs:subClassOf rdf:resource="http://www.multiscalehuman.ch/ontology/Cavitated_organ"/>
+  </rdf:Description>
+</rdf:RDF>

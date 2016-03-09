@@ -48,3 +48,25 @@ def test_r_predecessors(get_test_graph):
     assert "Lower limb" in r_predecessors["short_names"]
     assert utils.same_edge_lists(edges, r_predecessors["edges"])
     assert edge_type == r_predecessors["edge_type"]
+
+
+def test_r_successors(get_test_graph):
+    """Should return correct r_successors"""
+    g = get_test_graph
+
+    joint_stiffness = entity_mapper.match_entity("Joint stiffness", g)
+    alteration_in_gait_pattern = entity_mapper.match_entity(
+        "Alteration in gait pattern", g)
+    expected_short_names = [
+        "Alteration in gait pattern",
+        "Cartilage thinning",
+        "Cartilage fissure",
+        "Bone erosion"]
+
+    edge_type = "r-successor"
+
+    r_successors = create_edges.get_r_successors(joint_stiffness, g)
+
+    assert alteration_in_gait_pattern in r_successors["uris"]
+    assert set(expected_short_names) == set(r_successors["short_names"])
+    assert edge_type == r_successors["edge_type"]
