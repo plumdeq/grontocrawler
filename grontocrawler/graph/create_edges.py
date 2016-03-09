@@ -36,6 +36,7 @@ def get_direct_superclasses(resource, g):
 
             # add info on the class
             triples = triples + utils.triples_for_class(resource, g)
+            triples = triples + utils.triples_for_class(superclass, g)
 
             # compute short names for edges ids
             short_name_resource = utils.compute_short_name(resource, g)
@@ -187,7 +188,7 @@ def get_r_successors(resource, g):
 
             short_names.append(sn_r_successor)
 
-            edges.append((sn_resource, sn_r_successor,
+            edges.append((sn_r_successor, sn_resource,
                         {'relation': sn_obj_property}))
 
     return {

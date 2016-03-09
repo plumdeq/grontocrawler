@@ -3,11 +3,13 @@
 NetworkX graph creation from RDF graph
 
 """
+from rdflib import BNode
 import networkx as nx
+
 from grontocrawler.graph import create_edges
 
 
-def extract_subgraph(start_queue, g):
+def extract_subgraph(start_queue, g, max_to_crawl=100):
     """
     ([rdflib.URIRef], rdflib.Graph) -> networkx.Graph
 
@@ -21,15 +23,22 @@ def extract_subgraph(start_queue, g):
 
     # crawl until the queue is not empty
     while to_crawl:
+        print("size of to_crawl: {}, size of visited: {}".format(
+            len(to_crawl), len(visited)))
         next_node = to_crawl.pop()
+
+        assert not any(isinstance(x, BNode) for x in to_crawl), "Caught BNodes"
+
         if next_node not in visited:
             # mark nodes which we have already visited
             visited = visited + [next_node]
             successor_objs = get_successors(next_node, g)
 
-            for successor_obj in successor_objs:
-                to_crawl = to_crawl + successor_obj["uris"]
-                nx_graph.add_edges_from(successor_obj["edges"])
+            # add more nodes only if we can allow crawling
+            if len(to_crawl) <= max_to_crawl:
+                for successor_obj in successor_objs:
+                    to_crawl = to_crawl + successor_obj["uris"]
+                    nx_graph.add_edges_from(successor_obj["edges"])
 
     return nx_graph
 
