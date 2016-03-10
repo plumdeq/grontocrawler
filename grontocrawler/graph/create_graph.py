@@ -9,7 +9,7 @@ import networkx as nx
 from grontocrawler.graph import create_edges
 
 
-def extract_subgraph(start_queue, g, max_to_crawl=100):
+def extract_subgraph(start_queue, g, max_to_crawl=100, max_depth=10):
     """
     ([rdflib.URIRef], rdflib.Graph) -> networkx.Graph
 
@@ -20,12 +20,18 @@ def extract_subgraph(start_queue, g, max_to_crawl=100):
     nx_graph = nx.Graph()
     visited = []
     to_crawl = start_queue
+    depth = 0
 
     # crawl until the queue is not empty
     while to_crawl:
-        print("size of to_crawl: {}, size of visited: {}".format(
-            len(to_crawl), len(visited)))
+        print("size of to_crawl: {}, size of visited: {}, depth: {}".format(
+            len(to_crawl), len(visited), depth))
         next_node = to_crawl.pop()
+
+        # control the depth
+        depth = depth + 1
+        if depth > max_depth:
+            break
 
         assert not any(isinstance(x, BNode) for x in to_crawl), "Caught BNodes"
 
@@ -35,8 +41,8 @@ def extract_subgraph(start_queue, g, max_to_crawl=100):
             successor_objs = get_successors(next_node, g)
 
             # add more nodes only if we can allow crawling
-            if len(to_crawl) <= max_to_crawl:
-                for successor_obj in successor_objs:
+            for successor_obj in successor_objs:
+                if len(to_crawl) <= max_to_crawl:
                     to_crawl = to_crawl + successor_obj["uris"]
                     nx_graph.add_edges_from(successor_obj["edges"])
 

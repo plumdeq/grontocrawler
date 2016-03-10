@@ -108,6 +108,10 @@ def get_r_predecessors(resource, g):
                 (restriction, OWL.someValuesFrom, r_predecessor)
             ])
 
+            # get info for resource and r-predecessor
+            triples = triples + utils.triples_for_class(resource, g)
+            triples = triples + utils.triples_for_class(r_predecessor, g)
+
             # get short names (aka sn)
             sn_r_predecessor = utils.compute_short_name(r_predecessor, g)
             sn_obj_property = utils.compute_short_name(obj_property, g)
@@ -180,6 +184,10 @@ def get_r_successors(resource, g):
                 (restriction, OWL.onProperty, obj_property),
                 (restriction, OWL.someValuesFrom, resource)
             ])
+
+            # get info for resource and r-successor
+            triples = triples + utils.triples_for_class(resource, g)
+            triples = triples + utils.triples_for_class(r_successor, g)
 
             # get short names (aka sn)
             sn_r_successor = utils.compute_short_name(r_successor, g)

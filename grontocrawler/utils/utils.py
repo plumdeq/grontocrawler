@@ -46,6 +46,7 @@ def compute_short_name(resource, g):
         return str(resource)
 
 
+@memo
 def triples_for_class(resource, g):
     """
     (rdflib.URI) -> [(s, p, o)]
