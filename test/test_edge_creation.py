@@ -15,7 +15,7 @@ def test_direct_superclasses(get_test_graph):
     g = get_test_graph
 
     femur = entity_mapper.match_entity("Femur", g)
-    long_bone = entity_mapper.match_entity("Long_bone", g)
+    long_bone = entity_mapper.match_entity("Long bone", g)
 
     # axioms for OWL
     triples = [(femur, RDFS.subClassOf, long_bone),
@@ -23,15 +23,39 @@ def test_direct_superclasses(get_test_graph):
 
     # edges for Graph
     edges = [("Femur", "Long bone", {'relation': 'subClassOf'})]
-    edge_type = "is-a"
+    edge_type = "direct superclass"
 
     superclasses = create_edges.get_direct_superclasses(femur, g)
 
     assert long_bone in superclasses["uris"]
-    assert set(triples) == set(superclasses["triples"])
+    assert set(triples).issubset(set(superclasses["triples"]))
     assert "Long bone" in superclasses["short_names"]
     assert utils.same_edge_lists(edges, superclasses["edges"])
     assert edge_type == superclasses["edge_type"]
+
+
+def test_direct_subclasses(get_test_graph):
+    """Should return correct direct subclasses"""
+    g = get_test_graph
+
+    femur = entity_mapper.match_entity("Femur", g)
+    long_bone = entity_mapper.match_entity("Long bone", g)
+
+    # axioms for OWL
+    triples = [(femur, RDFS.subClassOf, long_bone),
+               (femur, RDF.type, OWL.Class)]
+
+    # edges for Graph
+    edges = [("Long bone", "Femur",  {'relation': 'subClassOf'})]
+    edge_type = "direct subclass"
+
+    subclasses = create_edges.get_direct_subclasses(long_bone, g)
+
+    assert femur in subclasses["uris"]
+    assert set(triples).issubset(subclasses["triples"])
+    assert "Femur" in subclasses["short_names"]
+    assert utils.same_edge_lists(edges, subclasses["edges"])
+    assert edge_type == subclasses["edge_type"]
 
 
 def test_r_predecessors(get_test_graph):

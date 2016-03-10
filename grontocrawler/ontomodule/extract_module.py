@@ -8,7 +8,7 @@ from rdflib import Graph, BNode
 from grontocrawler.graph.create_graph import get_successors
 
 
-def extract_module(start_queue, g, max_to_crawl=100, max_depth=10):
+def extract_module(start_queue, g, locality="top", max_to_crawl=100, max_depth=10):
     """
     ([rdflib.URI], rdflib.Graph) -> rdflib.Graph
 
@@ -39,7 +39,7 @@ def extract_module(start_queue, g, max_to_crawl=100, max_depth=10):
         if next_node not in visited:
             # mark nodes which we have already visited
             visited = visited + [next_node]
-            successor_objs = get_successors(next_node, g)
+            successor_objs = get_successors(next_node, g, locality=locality)
 
             for successor_obj in successor_objs:
                 if len(to_crawl) <= max_to_crawl:

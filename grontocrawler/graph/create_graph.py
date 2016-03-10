@@ -7,9 +7,10 @@ from rdflib import BNode
 import networkx as nx
 
 from grontocrawler.graph import create_edges
+from grontocrawler.utils import utils
 
 
-def extract_subgraph(start_queue, g, max_to_crawl=100, max_depth=10):
+def extract_subgraph(start_queue, g, locality="top", max_to_crawl=100, max_depth=10):
     """
     ([rdflib.URIRef], rdflib.Graph) -> networkx.Graph
 
@@ -38,7 +39,7 @@ def extract_subgraph(start_queue, g, max_to_crawl=100, max_depth=10):
         if next_node not in visited:
             # mark nodes which we have already visited
             visited = visited + [next_node]
-            successor_objs = get_successors(next_node, g)
+            successor_objs = get_successors(next_node, g, locality=locality)
 
             # add more nodes only if we can allow crawling
             for successor_obj in successor_objs:
@@ -49,7 +50,7 @@ def extract_subgraph(start_queue, g, max_to_crawl=100, max_depth=10):
     return nx_graph
 
 
-def get_successors(resource, g):
+def get_successors(resource, g, locality="top"):
     """
     (rdflib.URIRef, rdflib.Graph) -> [sucessor_obj]
 
@@ -65,12 +66,20 @@ def get_successors(resource, g):
 
     """
     # list of functions
-    edge_production_rules = [create_edges.get_direct_superclasses,
-                             create_edges.get_r_predecessors,
-                             create_edges.get_r_successors]
+    edge_production_rules = locality_rules(locality)
 
     # see the docstring
     sucessor_objs = [edge_production_rule(resource, g)
                      for edge_production_rule in edge_production_rules]
 
     return sucessor_objs
+
+
+@utils.memo
+def locality_rules(locality):
+    """Select the list of rules for a given locality"""
+    LOCALITY_RULES = {
+        "top": [create_edges.get_direct_subclasses, create_edges.get_r_successors],
+        "bottom": [create_edges.get_direct_superclasses, create_edges.get_r_predecessors]
+    }
+    return LOCALITY_RULES[locality]
