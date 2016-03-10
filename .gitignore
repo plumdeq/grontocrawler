@@ -4,3 +4,5 @@ build/*
 **/*egg*
 **/.cache
 ontology/*
+**/.ropeproject
+catalog*xml

@@ -6,5 +6,6 @@ Config values for Grontocrawler during test phase
 
 """
 config = {
-	"test_onto": "ontology/msh_onto_test.owl"
+    "msh_test_onto": "ontology/msh_onto_test.owl",
+    "fma_el_turtle": "ontology/fma-el.nt"
 }
