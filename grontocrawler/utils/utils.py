@@ -47,16 +47,18 @@ def compute_short_name(resource, g):
 
 
 @memo
-def triples_for_class(resource, g):
+def annotations(resource, g):
     """
     (rdflib.URI) -> [(s, p, o)]
 
-    Extracts the necessary triples for a given class (label, comment etc)
+    Extracts available annotation triples for a given class (label, comment
+    etc)
 
     """
     triples = []
 
-    if not (resource, RDF.type, OWL.Class) in g:
+    if not ((resource, RDF.type, OWL.Class) in g) and \
+            not ((resource, RDF.type, OWL.ObjectProperty)):
         return triples
 
     # if label is available add it too
@@ -69,7 +71,11 @@ def triples_for_class(resource, g):
     if comment:
         triples.append((resource, RDFS.comment, comment))
 
-    triples.append((resource, RDF.type, OWL.Class))
+    if (resource, RDF.type, OWL.Class) in g:
+        triples.append((resource, RDF.type, OWL.Class))
+
+    elif (resource, RDF.type, OWL.ObjectProperty) in g:
+        triples.append((resource, RDF.type, OWL.ObjectProperty))
 
     return triples
 

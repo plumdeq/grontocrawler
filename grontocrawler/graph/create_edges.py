@@ -35,8 +35,8 @@ def get_direct_superclasses(resource, g):
             triples.append((resource, RDFS.subClassOf, superclass))
 
             # add info on the class
-            triples = triples + utils.triples_for_class(resource, g)
-            triples = triples + utils.triples_for_class(superclass, g)
+            triples = triples + utils.annotations(resource, g)
+            triples = triples + utils.annotations(superclass, g)
 
             # compute short names for edges ids
             short_name_resource = utils.compute_short_name(resource, g)
@@ -82,8 +82,8 @@ def get_direct_subclasses(resource, g):
             triples.append((subclass, RDFS.subClassOf, resource))
 
             # add info on the class
-            triples = triples + utils.triples_for_class(resource, g)
-            triples = triples + utils.triples_for_class(subclass, g)
+            triples = triples + utils.annotations(resource, g)
+            triples = triples + utils.annotations(subclass, g)
 
             # compute short names for edges ids
             short_name_resource = utils.compute_short_name(resource, g)
@@ -91,7 +91,7 @@ def get_direct_subclasses(resource, g):
 
             short_names.append(short_name_subclass)
 
-            edges.append((short_name_subclass, short_name_resource, 
+            edges.append((short_name_subclass, short_name_resource,
                          {'relation': 'subClassOf'}))
 
     return {
@@ -156,8 +156,9 @@ def get_r_predecessors(resource, g):
             ])
 
             # get info for resource and r-predecessor
-            triples = triples + utils.triples_for_class(resource, g)
-            triples = triples + utils.triples_for_class(r_predecessor, g)
+            triples = triples + utils.annotations(resource, g)
+            triples = triples + utils.annotations(r_predecessor, g)
+            triples = triples + utils.annotations(obj_property, g)
 
             # get short names (aka sn)
             sn_r_predecessor = utils.compute_short_name(r_predecessor, g)
@@ -166,8 +167,8 @@ def get_r_predecessors(resource, g):
 
             short_names.append(sn_r_predecessor)
 
-            edges.append((sn_resource, sn_r_predecessor,
-                        {'relation': sn_obj_property}))
+            edges.append((sn_resource, sn_r_predecessor, {'relation':
+                                                          sn_obj_property}))
 
     return {
         "short_names": short_names,
@@ -233,8 +234,9 @@ def get_r_successors(resource, g):
             ])
 
             # get info for resource and r-successor
-            triples = triples + utils.triples_for_class(resource, g)
-            triples = triples + utils.triples_for_class(r_successor, g)
+            triples = triples + utils.annotations(resource, g)
+            triples = triples + utils.annotations(r_successor, g)
+            triples = triples + utils.annotations(obj_property, g)
 
             # get short names (aka sn)
             sn_r_successor = utils.compute_short_name(r_successor, g)
@@ -243,8 +245,8 @@ def get_r_successors(resource, g):
 
             short_names.append(sn_r_successor)
 
-            edges.append((sn_r_successor, sn_resource,
-                        {'relation': sn_obj_property}))
+            edges.append((sn_r_successor, sn_resource, {'relation':
+                                                        sn_obj_property}))
 
     return {
         "short_names": short_names,
