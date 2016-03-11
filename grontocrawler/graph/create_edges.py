@@ -28,9 +28,15 @@ def get_direct_superclasses(resource, g):
     edges = []
 
     for superclass in g.objects(resource, RDFS.subClassOf):
-        if (superclass, RDF.type, OWL.Class) in g:
+        if (superclass, RDF.type, OWL.Class) in g and \
+                not isinstance(superclass, BNode):
             uris.append(superclass)
+
             triples.append((resource, RDFS.subClassOf, superclass))
+
+            # add info on the class
+            triples = triples + utils.triples_for_class(resource, g)
+            triples = triples + utils.triples_for_class(superclass, g)
 
             # compute short names for edges ids
             short_name_resource = utils.compute_short_name(resource, g)
@@ -46,7 +52,54 @@ def get_direct_superclasses(resource, g):
         "uris": uris,
         "triples": triples,
         "edges": edges,
-        "edge_type": "is-a"
+        "edge_type": "direct superclass"
+
+    }
+
+
+def get_direct_subclasses(resource, g):
+    """
+    (rdflib.URI, rdflib.Graph) -> {
+        short_names: [label or short_name],
+        uris: [rdflib.URI],
+        triples: [(resource, RDFS.subClassOf, superclass)]
+    }
+
+    resource (rdflib.URI): resource for which we compute subclasses
+    g (rdflib.Graph): RDF graph
+
+    """
+    short_names = []
+    uris = []
+    triples = []
+    edges = []
+
+    for subclass in g.subjects(RDFS.subClassOf, resource):
+        if (subclass, RDF.type, OWL.Class) in g and \
+                not isinstance(subclass, BNode):
+            uris.append(subclass)
+
+            triples.append((subclass, RDFS.subClassOf, resource))
+
+            # add info on the class
+            triples = triples + utils.triples_for_class(resource, g)
+            triples = triples + utils.triples_for_class(subclass, g)
+
+            # compute short names for edges ids
+            short_name_resource = utils.compute_short_name(resource, g)
+            short_name_subclass = utils.compute_short_name(subclass, g)
+
+            short_names.append(short_name_subclass)
+
+            edges.append((short_name_subclass, short_name_resource, 
+                         {'relation': 'subClassOf'}))
+
+    return {
+        "short_names": short_names,
+        "uris": uris,
+        "triples": triples,
+        "edges": edges,
+        "edge_type": "direct subclass"
 
     }
 
@@ -89,25 +142,32 @@ def get_r_predecessors(resource, g):
 
         # we assume only atomic concepts in the filler of the restriction
         r_predecessor = next(g.objects(restriction, OWL.someValuesFrom))
-        uris.append(r_predecessor)
 
-        # add r-predecessor axiom
-        triples.extend([
-            (resource, RDFS.subClassOf, restriction),
-            (restriction, RDF.type, OWL.Restriction),
-            (restriction, OWL.onProperty, obj_property),
-            (restriction, OWL.someValuesFrom, r_predecessor)
-        ])
+        if not isinstance(r_predecessor, BNode):
 
-        # get short names (aka sn)
-        sn_r_predecessor = utils.compute_short_name(r_predecessor, g)
-        sn_obj_property = utils.compute_short_name(obj_property, g)
-        sn_resource = utils.compute_short_name(resource, g)
+            uris.append(r_predecessor)
 
-        short_names.append(sn_r_predecessor)
+            # add r-predecessor axiom
+            triples.extend([
+                (resource, RDFS.subClassOf, restriction),
+                (restriction, RDF.type, OWL.Restriction),
+                (restriction, OWL.onProperty, obj_property),
+                (restriction, OWL.someValuesFrom, r_predecessor)
+            ])
 
-        edges.append((sn_resource, sn_r_predecessor,
-                     {'relation': sn_obj_property}))
+            # get info for resource and r-predecessor
+            triples = triples + utils.triples_for_class(resource, g)
+            triples = triples + utils.triples_for_class(r_predecessor, g)
+
+            # get short names (aka sn)
+            sn_r_predecessor = utils.compute_short_name(r_predecessor, g)
+            sn_obj_property = utils.compute_short_name(obj_property, g)
+            sn_resource = utils.compute_short_name(resource, g)
+
+            short_names.append(sn_r_predecessor)
+
+            edges.append((sn_resource, sn_r_predecessor,
+                        {'relation': sn_obj_property}))
 
     return {
         "short_names": short_names,
@@ -149,34 +209,42 @@ def get_r_successors(resource, g):
     restrictions = (restriction
                     for restriction in g.subjects(RDF.type, OWL.Restriction)
                     if isinstance(restriction, BNode) and
-                    ((restriction, OWL.someValuesFrom, resource) in g))
+                    ((restriction, OWL.someValuesFrom, resource) in g) and
+                    (None, RDFS.subClassOf, restriction) in g)
 
-    # Now get all the R-predecessors as well as the object properties
+    # Now get all the R-successors as well as the object properties
     for restriction in restrictions:
         # there can only be one restriction on one property
         obj_property = next(g.objects(restriction, OWL.onProperty))
 
         # we assume only atomic concepts in the filler of the restriction
         r_successor = next(g.subjects(RDFS.subClassOf, restriction))
-        uris.append(r_successor)
 
-        # add r-predecessor axiom
-        triples.extend([
-            (r_successor, RDFS.subClassOf, restriction),
-            (restriction, RDF.type, OWL.Restriction),
-            (restriction, OWL.onProperty, obj_property),
-            (restriction, OWL.someValuesFrom, resource)
-        ])
+        if not isinstance(r_successor, BNode):
 
-        # get short names (aka sn)
-        sn_r_successor = utils.compute_short_name(r_successor, g)
-        sn_obj_property = utils.compute_short_name(obj_property, g)
-        sn_resource = utils.compute_short_name(resource, g)
+            uris.append(r_successor)
 
-        short_names.append(sn_r_successor)
+            # add r-predecessor axiom
+            triples.extend([
+                (r_successor, RDFS.subClassOf, restriction),
+                (restriction, RDF.type, OWL.Restriction),
+                (restriction, OWL.onProperty, obj_property),
+                (restriction, OWL.someValuesFrom, resource)
+            ])
 
-        edges.append((sn_resource, sn_r_successor,
-                     {'relation': sn_obj_property}))
+            # get info for resource and r-successor
+            triples = triples + utils.triples_for_class(resource, g)
+            triples = triples + utils.triples_for_class(r_successor, g)
+
+            # get short names (aka sn)
+            sn_r_successor = utils.compute_short_name(r_successor, g)
+            sn_obj_property = utils.compute_short_name(obj_property, g)
+            sn_resource = utils.compute_short_name(resource, g)
+
+            short_names.append(sn_r_successor)
+
+            edges.append((sn_r_successor, sn_resource,
+                        {'relation': sn_obj_property}))
 
     return {
         "short_names": short_names,
