@@ -5,3 +5,4 @@ build/*
 **/.cache
 **/.ropeproject
 catalog*xml
+ontology/benchmark/*
