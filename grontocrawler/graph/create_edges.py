@@ -52,7 +52,54 @@ def get_direct_superclasses(resource, g):
         "uris": uris,
         "triples": triples,
         "edges": edges,
-        "edge_type": "is-a"
+        "edge_type": "direct superclass"
+
+    }
+
+
+def get_direct_subclasses(resource, g):
+    """
+    (rdflib.URI, rdflib.Graph) -> {
+        short_names: [label or short_name],
+        uris: [rdflib.URI],
+        triples: [(resource, RDFS.subClassOf, superclass)]
+    }
+
+    resource (rdflib.URI): resource for which we compute subclasses
+    g (rdflib.Graph): RDF graph
+
+    """
+    short_names = []
+    uris = []
+    triples = []
+    edges = []
+
+    for subclass in g.subjects(RDFS.subClassOf, resource):
+        if (subclass, RDF.type, OWL.Class) in g and \
+                not isinstance(subclass, BNode):
+            uris.append(subclass)
+
+            triples.append((subclass, RDFS.subClassOf, resource))
+
+            # add info on the class
+            triples = triples + utils.triples_for_class(resource, g)
+            triples = triples + utils.triples_for_class(subclass, g)
+
+            # compute short names for edges ids
+            short_name_resource = utils.compute_short_name(resource, g)
+            short_name_subclass = utils.compute_short_name(subclass, g)
+
+            short_names.append(short_name_subclass)
+
+            edges.append((short_name_subclass, short_name_resource, 
+                         {'relation': 'subClassOf'}))
+
+    return {
+        "short_names": short_names,
+        "uris": uris,
+        "triples": triples,
+        "edges": edges,
+        "edge_type": "direct subclass"
 
     }
 
@@ -107,6 +154,10 @@ def get_r_predecessors(resource, g):
                 (restriction, OWL.onProperty, obj_property),
                 (restriction, OWL.someValuesFrom, r_predecessor)
             ])
+
+            # get info for resource and r-predecessor
+            triples = triples + utils.triples_for_class(resource, g)
+            triples = triples + utils.triples_for_class(r_predecessor, g)
 
             # get short names (aka sn)
             sn_r_predecessor = utils.compute_short_name(r_predecessor, g)
@@ -180,6 +231,10 @@ def get_r_successors(resource, g):
                 (restriction, OWL.onProperty, obj_property),
                 (restriction, OWL.someValuesFrom, resource)
             ])
+
+            # get info for resource and r-successor
+            triples = triples + utils.triples_for_class(resource, g)
+            triples = triples + utils.triples_for_class(r_successor, g)
 
             # get short names (aka sn)
             sn_r_successor = utils.compute_short_name(r_successor, g)

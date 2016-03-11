@@ -12,12 +12,14 @@ from grontocrawler.entity_mapper import entity_mapper
 def test_extraction_r_predecessor_triples(get_test_graph):
     """Check if all triples are extracted"""
     g = get_test_graph
+    locality = "bottom"
 
     femur = entity_mapper.match_entity("Femur", g)
+
     # lower_limb = entity_mapper.match_entity("Lower limb", g)
 
     # ontomodule is rdflib.Graph
-    ontomodule = extract_module.extract_module([femur], g)
+    ontomodule = extract_module.extract_module([femur], g, locality=locality)
 
     # assert that the r-predecessor axioms are there
     restrictions = (restriction
@@ -51,12 +53,13 @@ def test_extraction_r_predecessor_triples(get_test_graph):
 def test_extraction_r_successor_triples(get_test_graph):
     """Check if all triples are extracted"""
     g = get_test_graph
+    locality = "top"
 
     joint_stiffness = entity_mapper.match_entity("Joint stiffness", g)
     # lower_limb = entity_mapper.match_entity("Lower limb", g)
 
     # ontomodule is rdflib.Graph
-    ontomodule = extract_module.extract_module([joint_stiffness], g)
+    ontomodule = extract_module.extract_module([joint_stiffness], g, locality=locality)
 
     # assert that the r-predecessor axioms are there
     restrictions = (restriction

@@ -19,12 +19,15 @@ def main():
     parser.add_argument('-s', '--signature')
     parser.add_argument('-f', '--format-name', default=None)
     parser.add_argument('-o', '--output-file', default="ontology/output.owl")
+    parser.add_argument('-d', '--max-depth', default=10)
+    parser.add_argument('-l', '--locality', default='top')
 
     args = parser.parse_args()
 
     g = Graph().parse(args.input_ontology, format=args.format_name)
     resource = entity_mapper.match_entity(args.signature, g)
-    ontomodule = extract_module.extract_module([resource], g)
+    ontomodule = extract_module.extract_module(
+        [resource], g, locality=args.locality, max_depth=args.max_depth)
 
     with open(args.output_file, "w") as f:
         ontomodule.serialize(f)
