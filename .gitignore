@@ -7,3 +7,5 @@ ontology/*
 **/.ropeproject
 catalog*xml
 ontology/benchmark/*
+doc/build/*
+.coverage*
