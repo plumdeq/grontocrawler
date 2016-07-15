@@ -1,5 +1,8 @@
-# coding utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
+:author: Asan Agibetov
+
 Entity mapper which essentially gives the resource for a given keyword, it uses
 fuzzy string match on labels (if available), otherwise on URIs, and returns the
 best match
@@ -16,10 +19,12 @@ def match_entity(query, g):
     """
     (string, rdflib.Graph) -> URI
 
-    query (string): Keyword search term
-    g (rdflib.Graph): Input graph
+    Args:
+        query (string): Keyword search term
+        g (rdflib.Graph): Input graph
 
-    URI (rdflib.URI): URI of the resource
+    Returns:
+        URI (rdflib.URI): URI of the resource
 
     Matches URI resource for given keyword
 

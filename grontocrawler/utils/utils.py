@@ -1,8 +1,9 @@
-# coding utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
-Utils module, i.e., transformations of strings, urls etc.
-
 :author: Asan Agibetov
+
+Utils module, i.e., transformations of strings, urls etc.
 
 """
 from rdflib import RDF, RDFS, OWL
@@ -10,7 +11,7 @@ from functools import wraps
 
 
 def memo(f):
-    """Memoization for function $f$"""
+    """Memoization for function ``f``"""
     cache = {}
 
     @wraps(f)
