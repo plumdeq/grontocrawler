@@ -5,8 +5,8 @@ fuzzy string match on labels (if available), otherwise on URIs, and returns the
 best match
 
 """
-from rdflib import Namespace, RDF, OWL, URIRef
-from fuzzywuzzy import fuzz, process
+from rdflib import RDF, OWL, URIRef
+from fuzzywuzzy import process
 
 from grontocrawler.utils import utils
 
@@ -38,6 +38,26 @@ def match_entity(query, g):
     # "Long bone" -> "Long_bone": otherwise fuzzy matches "Long bone" to "Bone"
     query = query.replace(" ", "_")
 
+    # cached call
+    all_entities = entities(g)
+
+    label, score, uri = process.extractOne(query, all_entities)
+
+    # Notify if match score is too low
+    if score < 50:
+        print("Very low match score {}".format(score))
+
+    return URIRef(uri)
+
+
+@utils.memo
+def entities(g):
+    """
+    entities(rdflib.Graph) -> { uri: label | uri }
+
+    constructs a cached dictionary of uris to labels
+
+    """
     entities = {}
 
     for resource in g.subjects(RDF.type, OWL.Class):
@@ -51,10 +71,4 @@ def match_entity(query, g):
 
         entities[str(resource)] = label
 
-    label, score, uri = process.extractOne(query, entities)
-
-    # Notify if match score is too low
-    if score < 50:
-        print("Very low match score {}".format(score))
-
-    return URIRef(uri)
+    return entities
