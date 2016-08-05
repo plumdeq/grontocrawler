@@ -48,9 +48,13 @@ def match_entity(query, g):
 @utils.memo
 def entities(g):
     """
-    entities(rdflib.Graph) -> { uri: label | uri }
+    Constructs a cached dictionary of uris to labels
 
-    constructs a cached dictionary of uris to labels
+    Args:
+        g (rdflib.Graph): Input graph
+
+    Returns:
+        (dict): ``{ uri: label | uri }``
 
     """
     entities = {}
