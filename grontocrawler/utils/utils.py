@@ -12,7 +12,14 @@ import time
 
 
 def memo(f):
-    """Memoization for function ``f``"""
+    """
+    Memoization for function ``f``, if recompute is True, then we force
+    recomputation
+
+    Args:
+        f (func): function to memoize
+
+    """
     cache = {}
 
     @wraps(f)

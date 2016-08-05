@@ -12,39 +12,12 @@ timing for the following statistics
 * time needed to build entity mapper dictionary (uri -> label or uri)
 
 """
-from rdflib import Graph, RDF, RDFS, OWL
+from rdflib import Graph
+
 from grontocrawler.utils import utils
 from grontocrawler.config_test import benchmark_ontologies
 from grontocrawler.entity_mapper import entity_mapper
-
-
-# axioms taken into account
-axioms_map = {
-    'subclass': RDFS.subClassOf,
-    'equivalent': OWL.equivalentClass,
-    'domain': RDFS.domain,
-    'range': RDFS.range
-}
-
-def extract_axioms(g):
-    """
-    Extract triples for all axioms, one triple per axiom
-
-    Args:
-        g (:py:class:`rdflib.Graph`): RDF graph on which we operate
-
-    Returns:
-        dict: one triple per axiom in RDF graph ``g``
-
-    """
-    axioms = {}
-
-    for axiom, uri in axioms_map.items():
-        triples = [triple
-                   for triple in g.triples((None, uri, None))]
-        axioms[axiom] = triples
-
-    return axioms
+from grontocrawler.axioms import extract_axioms
 
 
 def count_axioms(g):
@@ -60,26 +33,12 @@ def count_axioms(g):
     """
     counts = {}
 
-    axioms = extract_axioms(g)
+    axioms = extract_axioms.extract_axioms(g)
 
     for axiom, triples in axioms.items():
         counts[axiom] = len(triples)
 
     return counts
-
-
-def all_classes(g):
-    """
-    Extracts uris of all OWL classes
-
-    Args:
-        g (:py:class:`rdflib.Graph`): RDF graph on which we operate
-
-    Returns:
-        list: list of URIs of OWL.classes
-
-    """
-    return [cls for cls in g.subjects(RDF.type, OWL.Class)]
 
 
 def stats_onto(onto_path, onto_format='nt', log=True):
@@ -122,7 +81,7 @@ def stats_onto(onto_path, onto_format='nt', log=True):
     if log:
         print('\nCounting OWL classes\n=============')
 
-    times['classes'] = timeit(all_classes, log=log)(g)
+    times['classes'] = timeit(extract_axioms.owl_classes, log=log)(g)
 
     # build entity mapper
     if log:
