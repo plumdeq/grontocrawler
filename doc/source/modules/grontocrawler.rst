@@ -6,9 +6,11 @@ Subpackages
 
 .. toctree::
 
+    grontocrawler.axioms
     grontocrawler.entity_mapper
     grontocrawler.graph
     grontocrawler.ontomodule
+    grontocrawler.stats
     grontocrawler.utils
 
 Submodules
