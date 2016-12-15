@@ -2,19 +2,12 @@
 # -*- coding: utf-8 -*-
 from rdflib import BNode, RDF, RDFS, OWL
 from rdflib.extras.infixowl import CastClass
+
+from grontocrawler.axioms import axiom_iterators
 # # Utils functions working with BNodes
 #
 # These functions help in the manipulation of the blank nodes. In particular,
 # removal of duplicate restrictions, or removal of orphan restrictions
-
-def restriction_bnodes(g):
-    """
-    Generator which gives all BNodes (identifiers) which are restrictions from a graph `g`
-    """
-    for cls in g.subjects(RDF.type, OWL.Restriction):
-        if isinstance(cls, BNode):
-            yield cls
-
 
 def are_same_restrictions(g, r1, r2):
     """
@@ -54,7 +47,7 @@ def orphan_restrictions(g):
 
     if no pattern `class1 a [a OWL.Restriction1]`, then delete `OWL.Restriction1`
     """
-    for restr_bnode in restriction_bnodes(g):
+    for restr_bnode in axiom_iterators.restriction_bnodes(g):
         if not (None, RDFS.subClassOf, restr_bnode) in g:
             yield restr_bnode
 
@@ -66,10 +59,17 @@ def remove_duplicate_restrictions(g):
     # we need to keep a list of already removed bnodes
     removed_bnodes = []
     # pairwise comparison of bnodes casted into classes
-    bnodes_to_check = (bnode_id for bnode_id in restriction_bnodes(g) if bnode_id not in removed_bnodes)
+    bnodes_to_check = (bnode_id
+                       for bnode_id in axiom_iterators.restriction_bnodes(g)
+                       if bnode_id not in removed_bnodes)
     for bnode_id in bnodes_to_check:
-        others = (other for other in restriction_bnodes(g) if other != bnode_id)
-        sames = (similar for similar in others if are_same_restrictions(g, similar, bnode_id))
+        others = (other
+                  for other in axiom_iterators.restriction_bnodes(g)
+                  if other != bnode_id)
+
+        sames = (similar
+                for similar in others
+                if are_same_restrictions(g, similar, bnode_id))
 
         # delete same restrictions
         for same_restriction in sames:
@@ -81,6 +81,8 @@ def remove_orphan_restrictions(g):
     """
     Go through orphan restrictions and delete them
     """
-    orphans = (CastClass(orphan, g) for orphan in orphan_restrictions(g))
+    orphans = (CastClass(orphan, g)
+               for orphan in orphan_restrictions(g))
+
     for orphan in orphans:
         orphan.delete()

@@ -51,3 +51,25 @@ def test_same_restriction():
     assert not bnode_utils.are_same_restrictions(g, a, b)
     assert bnode_utils.are_same_restrictions(g, a, a)
     assert bnode_utils.are_same_restrictions(g, a, c)
+
+    # don't forget to clean the graph from orphan restrictions
+    bnode_utils.remove_orphan_restrictions(g)
+
+
+# duplicate restrictions have different BNodes, but are the same restrictions
+# duplicate restriction removal should delete duplicates, but should keep
+# original restrictions
+def test_remove_duplicate_restrictions():
+    # create duplicate orphan restrictions
+    a1 = negatively_regulates | some | tnf_alpha
+    a2 = negatively_regulates | some | tnf_alpha
+    a3 = negatively_regulates | some | tnf_alpha
+
+    # create some orphan restrictions, which should not be deleted
+    b1 = negatively_regulates | some | chondro_anabolism
+    b2 = negatively_regulates | some | chondro_catabolism
+
+    assert len(list(bnode_utils.orphan_restrictions(g))) == 5
+
+    bnode_utils.remove_duplicate_restrictions(g)
+    assert len(list(bnode_utils.orphan_restrictions(g))) == 3

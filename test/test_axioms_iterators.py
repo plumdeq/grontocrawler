@@ -11,7 +11,7 @@ mypath = os.path.abspath(mypath)
 sys.path.insert(0, mypath)
 
 # # Testing axiom iterators
-from rdflib import RDF, RDFS, OWL
+from rdflib import RDF, RDFS, OWL, BNode, URIRef
 
 # please note, that in our environment, after importing `sample_ontology`, we
 # will have many variables such as mapped OWL classes and `g, ns` - rdflib
@@ -31,3 +31,29 @@ def test_atomic_subclass_axioms():
     # known subclassof assertions between atomic classes can be found
     assert (tnf_alpha.identifier, RDFS.subClassOf, con.identifier) in subclass_axioms(g)
     assert (chondro_anabolism.identifier, RDFS.subClassOf, occ.identifier) in subclass_axioms(g)
+
+
+# No bnodes should be among owl classes
+def test_owl_classes_uris():
+    owl_class_uris = axiom_iterators.owl_class_uris
+
+    for owl_class_uri in owl_class_uris(g):
+        assert not isinstance(owl_class_uri, BNode)
+        assert (owl_class_uri, RDF.type, OWL.Class) in g
+
+
+# Only bnodes should be among anonymous classes
+def test_anonymous_class_bnodes():
+    anonymous_class_bnodes = axiom_iterators.anonymous_class_bnodes
+
+    for anonymous_class_bnode in anonymous_class_bnodes(g):
+        assert isinstance(anonymous_class_bnode, BNode)
+
+
+# Only bnodes should be among restrictions
+def test_anonymous_class_bnodes():
+    restriction_bnodes = axiom_iterators.restriction_bnodes
+
+    for restriction_bnode in restriction_bnodes(g):
+        assert isinstance(restriction_bnode, BNode)
+        assert (restriction_bnode, RDF.type, OWL.Restriction) in g
