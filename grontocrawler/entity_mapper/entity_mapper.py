@@ -12,6 +12,7 @@ from rdflib import RDF, OWL, URIRef
 from fuzzywuzzy import process
 
 from grontocrawler.utils import utils
+from grontocrawler.axioms import extract_axioms
 
 
 @utils.memo
@@ -29,17 +30,6 @@ def match_entity(query, g):
     Matches URI resource for given keyword
 
     """
-    # keyword = keyword.replace(" ", "_")
-    # # g.namespaces return (short_form, URL) tuples
-    # namespaces = (Namespace(namespace) for _, namespace in g.namespaces())
-
-    # for namespace in namespaces:
-    #     if namespace[keyword] in g.subjects():
-    #         return namespace[keyword]
-
-    # return None
-    # build a dictionary of entities { uri: label (if any, otherwise uri) }
-
     # "Long bone" -> "Long_bone": otherwise fuzzy matches "Long bone" to "Bone"
     query = query.replace(" ", "_")
 
@@ -58,22 +48,27 @@ def match_entity(query, g):
 @utils.memo
 def entities(g):
     """
-    entities(rdflib.Graph) -> { uri: label | uri }
+    Constructs a cached dictionary of uris to labels
 
-    constructs a cached dictionary of uris to labels
+    Args:
+        g (rdflib.Graph): Input graph
+
+    Returns:
+        (dict): ``{ uri: label | uri }``
 
     """
     entities = {}
+    owl_classes = extract_axioms.owl_classes(g)
 
-    for resource in g.subjects(RDF.type, OWL.Class):
+    for owl_class in owl_classes:
         try:
-            label = str(g.label(resource))
+            label = str(g.label(owl_class))
             if not label:
-                _, _, label = g.compute_qname(resource)
+                _, _, label = g.compute_qname(owl_class)
 
         except Exception:
-            label = str(resource)
+            label = str(owl_class)
 
-        entities[str(resource)] = label
+        entities[str(owl_class)] = label
 
     return entities
