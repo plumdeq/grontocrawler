@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-:author: Asan Agibetov
-
-Entity mapper which essentially gives the resource for a given keyword, it uses
-fuzzy string match on labels (if available), otherwise on URIs, and returns the
-best match
-
-"""
+#
+# author: Asan Agibetov
+#
+# Entity mapper which essentially gives the resource for a given keyword, it uses
+# fuzzy string match on labels (if available), otherwise on URIs, and returns the
+# best match
+#
+#
 from rdflib import RDF, OWL, URIRef
 from fuzzywuzzy import process
 
