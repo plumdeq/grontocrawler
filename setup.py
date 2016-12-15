@@ -1,9 +1,9 @@
 from setuptools import setup
 
 setup(name='grontocrawler',
-      version='1.0',
-      description='Knowledge graph exploration with OWL ontologies',
+      version='0.3',
+      description='transformation of OWL ontologies into graphs',
       author='Asan Agibetov',
       author_email='asan.agibetov@gmail.com',
-      url='plumdeq.xyz',
+      url='grontocrawler.plumdeq.xyz',
      )
