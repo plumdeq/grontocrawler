@@ -38,31 +38,33 @@ def produce_existential_arc(restriction_bnode, g):
     r_successor  = next(g.objects(restriction_bnode, OWL.someValuesFrom))
 
     # we assume only atomic concepts in the filler of the restriction
-    if not isinstance(r_successor, BNode):
-        source_label = entity_mapper.compute_short_name(source_cls, g)
-        arc_label    = entity_mapper.compute_short_name(obj_property, g)
-        target_label = entity_mapper.compute_short_name(r_successor, g)
-        arc_uri      = str(obj_property)
-        arc_type     = str(OWL.someValuesFrom)
+    if isinstance(r_successor, BNode):
+        return None
 
-        arc_data = {
-            'label': arc_label,
-            'arc_uri': arc_uri,
-            'arc_type': arc_type
-        }
+    source_id = str(source_cls)
+    target_id = str(r_successor)
 
-        arc = (source_label, target_label, arc_data)
+    arc_label    = entity_mapper.compute_short_name(obj_property, g)
+    arc_uri      = str(obj_property)
+    arc_type     = str(OWL.someValuesFrom)
 
-        return arc
+    arc_data = {
+        'label': arc_label,
+        'arc_uri': arc_uri,
+        'arc_type': arc_type
+    }
 
-    return None
+    arc = (source_id, target_id, arc_data)
+
+    return arc
 
 
 def existential_arcs(g):
     """
     Go through triples of restrictions and look for a suitable pattern
     """
-    for restriction_bnode in axiom_iterators.restriction_bnodes(g):
-        arc = produce_existential_arc(restriction_bnode, g)
+    arcs_itr = (produce_existential_arc(restriction_bnode, g)
+                for restriction_bnode in axiom_iterators.restriction_bnodes(g))
 
+    for arc in arcs_itr:
         yield arc

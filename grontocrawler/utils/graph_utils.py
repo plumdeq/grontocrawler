@@ -21,6 +21,21 @@ def are_same_edges(edge1, edge2):
     return True
 
 
+# Nodes are the same if ids are the same and data dicts are the same
+def are_same_nodes(node1, node2):
+    """
+    Check if two nodes (networkx) are the same - same id, same data_dict
+
+    """
+    id1, data_dict1 = node1
+    id2, data_dict2 = node2
+
+    if not id1 == id2:
+        return False
+
+    return are_same_dictionaries(data_dict1, data_dict2)
+
+
 def are_same_edge_lists(edge_list_1, edge_list_2):
     """
     ([(source, target, dict(attributes)],
@@ -66,3 +81,8 @@ def are_same_dictionaries(dict_1, dict_2):
 def is_edge_in_edges(edge, edge_itr):
     any_same_edge = (are_same_edges(edge, other) for other in edge_itr)
     return any(any_same_edge)
+
+# Go through all nodes and check whether we find given node
+def is_node_in_nodes(node, nodes_itr):
+    any_same_node = (are_same_nodes(node, other) for other in nodes_itr)
+    return any(any_same_node)

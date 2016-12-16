@@ -32,7 +32,7 @@ from grontocrawler.utils import graph_utils
 
 
 # Should correctly compare lists of edges with dictionaries as attributes
-def test_same_edges():
+def test_same_edge_lists():
     edge_list_1 = [('a', 'b', {'relation': 'r-predecessor'}),
                    ('b', 'c', {'relation': 'is-a'})]
 
@@ -48,6 +48,19 @@ def test_same_edges():
     assert graph_utils.are_same_edge_lists(edge_list_1, edge_list_2)
     assert not graph_utils.are_same_edge_lists(edge_list_1, edge_list_3)
     assert not graph_utils.are_same_edge_lists(edge_list_3, edge_list_4)
+
+
+# Should correctly compare nodes
+def test_same_nodes():
+    nodes = [('a',{'relation': 'r-predecessor'}),
+             ('b',{'relation': 'is-a'}),
+             ('a2',{'relation': 'r-predecessor', 'key': 'value'}),
+             ('b2',{'relation': 'is-a', 'another': 'value'}),
+             ('a',{'relation': 'r-predecessor'})]
+
+    assert graph_utils.are_same_nodes(nodes[0], nodes[0])
+    assert not graph_utils.are_same_nodes(nodes[0], nodes[1])
+    assert graph_utils.are_same_nodes(nodes[0], nodes[-1])
 
 # Two not nested dictionaries are equal if they have the same keys and the
 # corresponding values are the same
@@ -76,3 +89,19 @@ def test_edge_in_edge_itr():
 
     for edge_in_list in edge_list:
         assert graph_utils.is_edge_in_edges(edge_in_list, edge_list)
+
+
+# All members of nodes lists are in the node list, node outside the list is not
+# in the list
+def test_node_in_nodes_itr():
+    node_list = [('a',{'relation': 'r-predecessor'}),
+                 ('b',{'relation': 'is-a'}),
+                 ('a2',{'relation': 'r-predecessor', 'key': 'value'}),
+                 ('b2',{'relation': 'is-a', 'another': 'value'})]
+
+    not_in_node_list = ('a',{'relation': 'r-predecessor', 'something': 'nothing'})
+
+    for node_in_list in node_list:
+        assert graph_utils.is_node_in_nodes(node_in_list, node_list)
+
+    assert not graph_utils.is_node_in_nodes(not_in_node_list, node_list)
