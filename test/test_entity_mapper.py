@@ -1,30 +1,40 @@
-# coding utf-8
-"""
-Tests for entity mapper which essentially gives the resource for a given keyword
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# same old trick to put this directory into the path
+import os
+import sys
 
-"""
-import pytest
+filename = os.path.abspath(__file__)
+dirname = os.path.dirname(filename)
+mypath = os.path.join(dirname, '..')
+mypath = os.path.abspath(mypath)
+sys.path.insert(0, mypath)
 
+# # Testing axiom iterators
+from rdflib import RDF, RDFS, OWL
+
+# please note, that in our environment, after importing `sample_ontology`, we
+# will have many variables such as mapped OWL classes and `g, ns` - rdflib
+# graph, and the namespace
+from grontocrawler.sample_ontology.hypo_ontology import *
 from grontocrawler.entity_mapper import entity_mapper
 
+# # Test entity mapper
+#
+# Entity mapper gives you identifiers of the RDF resources which you can match
+# with strings or keywords
 
-def test_entity_mapper(get_test_graph):
-    """'Femur' keyword should resolve to the correct resource"""
-    g = get_test_graph
+def test_simple_entity():
+    con_matched = entity_mapper.match_entity('Continuant', g)
+    assert con_matched == con.identifier
 
-    matched_resource_1 = entity_mapper.match_entity("Femur", g)
-    matched_resource_2 = entity_mapper.match_entity("Long bone", g)
-
-    assert matched_resource_1
-    assert matched_resource_2
+    occ_matched = entity_mapper.match_entity('Occurrent', g)
+    assert occ_matched == occ.identifier
 
 
-@pytest.mark.fma
-def test_entity_mapper_fma(get_fma_graph):
-    """Compute qname is known to break on FMA ontology"""
-    g = get_fma_graph
+def test_compute_shortname():
+    con_matched = entity_mapper.match_entity('continuant', g)
+    assert entity_mapper.compute_short_name(con_matched, g) == 'Continuant'
 
-    matched_resource_1 = entity_mapper.match_entity("Femur", g)
-    print(matched_resource_1)
-
-    assert matched_resource_1
+    occ_matched = entity_mapper.match_entity('Occurrent', g)
+    assert entity_mapper.compute_short_name(occ_matched, g) == 'Occurent'

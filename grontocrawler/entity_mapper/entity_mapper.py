@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-:author: Asan Agibetov
-
-Entity mapper which essentially gives the resource for a given keyword, it uses
-fuzzy string match on labels (if available), otherwise on URIs, and returns the
-best match
-
-"""
-from rdflib import RDF, OWL, URIRef
+#
+# author: Asan Agibetov
+#
+# Entity mapper which essentially gives the resource for a given keyword, it uses
+# fuzzy string match on labels (if available), otherwise on URIs, and returns the
+# best match
+#
+#
+from rdflib import RDF, RDFS, OWL, URIRef
 from fuzzywuzzy import process
 
 from grontocrawler.utils import utils
-from grontocrawler.axioms import extract_axioms
+from grontocrawler.axioms import axiom_iterators
 
 
 @utils.memo
@@ -58,9 +58,8 @@ def entities(g):
 
     """
     entities = {}
-    owl_classes = extract_axioms.owl_classes(g)
 
-    for owl_class in owl_classes:
+    for owl_class in axiom_iterators.owl_class_uris(g):
         try:
             label = str(g.label(owl_class))
             if not label:
@@ -72,3 +71,61 @@ def entities(g):
         entities[str(owl_class)] = label
 
     return entities
+
+
+@utils.memo
+def compute_short_name(resource, g):
+    """
+    (rdflib.URI, rdflib.Graph) -> string
+
+    resource (rdflib.URI): resource for which we compute short name
+    g (rdflib.Graph): RDF graph
+
+    Tries to extract label, if the label does not exist, then tries to divide
+    the URI, otherwise simply return the string with the full URI
+
+    """
+    try:
+        label = g.label(resource)
+
+        if not label:
+            ns, uri, qname = g.compute_qname(resource)
+            return qname.replace("_", " ")
+
+        return str(label)
+    except Exception:
+        return str(resource)
+
+
+@utils.memo
+def annotations(resource, g):
+    """
+    (rdflib.URI) -> [(s, p, o)]
+
+    Extracts available annotation triples for a given class (label, comment
+    etc)
+
+    """
+    triples = []
+
+    if not ((resource, RDF.type, OWL.Class) in g) and \
+            not ((resource, RDF.type, OWL.ObjectProperty)):
+        return triples
+
+    # if label is available add it too
+    label = g.label(resource)
+    comment = g.comment(resource)
+
+    if label:
+        triples.append((resource, RDFS.label, label))
+
+    if comment:
+        triples.append((resource, RDFS.comment, comment))
+
+    if (resource, RDF.type, OWL.Class) in g:
+        triples.append((resource, RDF.type, OWL.Class))
+
+    elif (resource, RDF.type, OWL.ObjectProperty) in g:
+        triples.append((resource, RDF.type, OWL.ObjectProperty))
+
+    return triples
