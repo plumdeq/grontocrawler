@@ -58,3 +58,21 @@ def test_same_dictionaries():
 
     assert not graph_utils.are_same_dictionaries(dict_1, dict_2)
     assert graph_utils.are_same_dictionaries(dict_1, dict_3)
+
+
+# All memebers of the edge list should be identified as members of the edge
+# list. A different edge should not be identified as the member of the edge
+# list
+def test_edge_in_edge_itr():
+    edge_list = [('a', 'b', {'relation': 'r-predecessor'}),
+                 ('b', 'c', {'relation': 'is-a'}),
+                 ('b', 'c', {'relation': 'is-a', 'label': 'hello there'}),
+                 ('d', 'e', {'relation': 'is-a', 'label': 'hello there', 'some key': 'yet another'})
+                 ]
+
+    not_in_edge_list = ('a', 'b', {'relation': 'r-successor'})
+
+    assert not graph_utils.is_edge_in_edges(not_in_edge_list, edge_list)
+
+    for edge_in_list in edge_list:
+        assert graph_utils.is_edge_in_edges(edge_in_list, edge_list)

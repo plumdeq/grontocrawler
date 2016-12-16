@@ -9,6 +9,7 @@ setup(name='grontocrawler',
       install_requires=[
           'networkx',
           'rdflib',
-          'fuzzywuzzy'
+          'fuzzywuzzy',
+          'python-Levenshtein'
         ]
      )

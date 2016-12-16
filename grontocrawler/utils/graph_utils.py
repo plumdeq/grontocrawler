@@ -49,6 +49,20 @@ def are_same_dictionaries(dict_1, dict_2):
     values
 
     """
-    diffkeys = [k for k in dict_1 if dict_1[k] != dict_2[k]]
+    # find out if the keys lists are the same
+    if not dict_1.keys() == dict_2.keys():
+        return False
 
-    return len(diffkeys) == 0
+    # keys are the same, we can simply compare values
+    for k in dict_1:
+        if dict_1[k] != dict_2[k]:
+            return False
+
+    return True
+
+
+# We check whether a given edge (tuple) can be found in an edge iterator
+#
+def is_edge_in_edges(edge, edge_itr):
+    any_same_edge = (are_same_edges(edge, other) for other in edge_itr)
+    return any(any_same_edge)
