@@ -1,12 +1,29 @@
-strict digraph "" {
-"http://plumdeq.xyz/ontologies/test/MMP13_production" -> "http://plumdeq.xyz/ontologies/test/Collagen_type_II"  [arc_type="http://www.w3.org/2002/07/owl#someValuesFrom", arc_uri="http://plumdeq.xyz/ontologies/test/reduces_levels_of", label="reduces levels of"];
-"http://plumdeq.xyz/ontologies/test/Chondrocytes_catabolism_activity" -> "http://plumdeq.xyz/ontologies/test/TNF_alpha_production"  [arc_type="http://www.w3.org/2002/07/owl#someValuesFrom", arc_uri="http://plumdeq.xyz/ontologies/test/positively_regulates", label="positively regulates"];
-"http://plumdeq.xyz/ontologies/test/Chondrocytes_catabolism_activity" -> "http://plumdeq.xyz/ontologies/test/Adamt_production"  [arc_type="http://www.w3.org/2002/07/owl#someValuesFrom", arc_uri="http://plumdeq.xyz/ontologies/test/positively_regulates", label="positively regulates"];
-"http://plumdeq.xyz/ontologies/test/Chondrocytes_catabolism_activity" -> "http://plumdeq.xyz/ontologies/test/MMP13_production"  [arc_type="http://www.w3.org/2002/07/owl#someValuesFrom", arc_uri="http://plumdeq.xyz/ontologies/test/positively_regulates", label="positively regulates"];
-"http://plumdeq.xyz/ontologies/test/TNF_alpha_production" -> "http://plumdeq.xyz/ontologies/test/Chondrocytes_catabolism_activity"  [arc_type="http://www.w3.org/2002/07/owl#someValuesFrom", arc_uri="http://plumdeq.xyz/ontologies/test/activates", label=activates];
-"http://plumdeq.xyz/ontologies/test/TNF_alpha_production" -> "http://plumdeq.xyz/ontologies/test/TNF_alpha"  [arc_type="http://www.w3.org/2002/07/owl#someValuesFrom", arc_uri="http://plumdeq.xyz/ontologies/test/increases_levels_of", label="increases levels of"];
-"http://plumdeq.xyz/ontologies/test/TNF_alpha_production" -> "http://plumdeq.xyz/ontologies/test/Chondrocytes_anabolism_activity"  [arc_type="http://www.w3.org/2002/07/owl#someValuesFrom", arc_uri="http://plumdeq.xyz/ontologies/test/inhibits", label=inhibits];
-"http://plumdeq.xyz/ontologies/test/Adamt_production" -> "http://plumdeq.xyz/ontologies/test/Protoaeglycan"  [arc_type="http://www.w3.org/2002/07/owl#someValuesFrom", arc_uri="http://plumdeq.xyz/ontologies/test/reduces_levels_of", label="reduces levels of"];
-"http://plumdeq.xyz/ontologies/test/Chondrocytes_anabolism_activity" -> "http://plumdeq.xyz/ontologies/test/Collagen_production"  [arc_type="http://www.w3.org/2002/07/owl#someValuesFrom", arc_uri="http://plumdeq.xyz/ontologies/test/positively_regulates", label="positively regulates"];
-"http://plumdeq.xyz/ontologies/test/Chondrocytes_anabolism_activity" -> "http://plumdeq.xyz/ontologies/test/Protoaeglycan_production"  [arc_type="http://www.w3.org/2002/07/owl#someValuesFrom", arc_uri="http://plumdeq.xyz/ontologies/test/positively_regulates", label="positively regulates"];
+digraph g {
+    "http://plumdeq.xyz/ontologies/test/Collagen_production" [label="Collagen production"] ;
+    "http://plumdeq.xyz/ontologies/test/MMP13" [label="MMP13"] ;
+    "http://plumdeq.xyz/ontologies/test/Adamt_production" [label="Adamt production"] ;
+    "http://plumdeq.xyz/ontologies/test/Occurent" [label="Occurent"] ;
+    "http://plumdeq.xyz/ontologies/test/TNF_alpha" [label="TNF alpha"] ;
+    "http://plumdeq.xyz/ontologies/test/TNF_alpha_overproduction" [label="TNF alpha overproduction"] ;
+    "http://plumdeq.xyz/ontologies/test/MMP13_production" [label="MMP13 production"] ;
+    "http://plumdeq.xyz/ontologies/test/Protoaeglycan_production" [label="Protoaeglycan production"] ;
+    "http://plumdeq.xyz/ontologies/test/Collagen_type_II" [label="Collagen type II"] ;
+    "http://plumdeq.xyz/ontologies/test/Chondrocytes_apoptosis" [label="Chondrocytes apoptosis"] ;
+    "http://plumdeq.xyz/ontologies/test/Protoaeglycan" [label="Protoaeglycan"] ;
+    "http://plumdeq.xyz/ontologies/test/Continuant" [label="Continuant"] ;
+    "http://plumdeq.xyz/ontologies/test/Adamt" [label="Adamt"] ;
+    "http://plumdeq.xyz/ontologies/test/TNF_alpha_production" [label="TNF alpha production"] ;
+    "http://plumdeq.xyz/ontologies/test/Chondrocytes_catabolism_activity" [label="Chondrocytes catabolism activity"] ;
+    "http://plumdeq.xyz/ontologies/test/Chondrocytes_anabolism_activity" [label="Chondrocytes anabolism activity"] ;
+    "http://plumdeq.xyz/ontologies/test/Chondrocytes" [label="Chondrocytes"] ;
+    "http://plumdeq.xyz/ontologies/test/Adamt_production" -> "http://plumdeq.xyz/ontologies/test/Protoaeglycan" [label="reduces levels of"] ;
+    "http://plumdeq.xyz/ontologies/test/MMP13_production" -> "http://plumdeq.xyz/ontologies/test/Collagen_type_II" [label="reduces levels of"] ;
+    "http://plumdeq.xyz/ontologies/test/TNF_alpha_production" -> "http://plumdeq.xyz/ontologies/test/Chondrocytes_catabolism_activity" [label="activates"] ;
+    "http://plumdeq.xyz/ontologies/test/TNF_alpha_production" -> "http://plumdeq.xyz/ontologies/test/TNF_alpha" [label="increases levels of"] ;
+    "http://plumdeq.xyz/ontologies/test/TNF_alpha_production" -> "http://plumdeq.xyz/ontologies/test/Chondrocytes_anabolism_activity" [label="inhibits"] ;
+    "http://plumdeq.xyz/ontologies/test/Chondrocytes_catabolism_activity" -> "http://plumdeq.xyz/ontologies/test/TNF_alpha_production" [label="positively regulates"] ;
+    "http://plumdeq.xyz/ontologies/test/Chondrocytes_catabolism_activity" -> "http://plumdeq.xyz/ontologies/test/Adamt_production" [label="positively regulates"] ;
+    "http://plumdeq.xyz/ontologies/test/Chondrocytes_catabolism_activity" -> "http://plumdeq.xyz/ontologies/test/MMP13_production" [label="positively regulates"] ;
+    "http://plumdeq.xyz/ontologies/test/Chondrocytes_anabolism_activity" -> "http://plumdeq.xyz/ontologies/test/Collagen_production" [label="positively regulates"] ;
+    "http://plumdeq.xyz/ontologies/test/Chondrocytes_anabolism_activity" -> "http://plumdeq.xyz/ontologies/test/Protoaeglycan_production" [label="positively regulates"] ;
 }

@@ -23,7 +23,12 @@ def produce_node(owl_class_uri, g):
     node_label = entity_mapper.compute_short_name(owl_class_uri, g)
     node_uri = node_id
 
-    return (node_id, dict(label=node_label, node_uri=node_uri))
+    node_data = {
+            'node_label': node_label,
+            'node_uri': node_uri
+        }
+
+    return (node_id, node_data)
 
 
 def produce_nodes(g):
