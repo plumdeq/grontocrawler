@@ -25,6 +25,8 @@ def to_dot(g, stream=sys.stdout):
     """
     digraph = produce_graph.produce_graph(g)
 
+    stream.write('digraph g {\n')
+
     # draw nodes, i.e.
     for (node, node_data) in digraph.nodes_iter(data=True):
         node_str = '"%s" [label="%s"] ;\n'
@@ -33,5 +35,7 @@ def to_dot(g, stream=sys.stdout):
     for (source, target, edge_data) in digraph.edges_iter(data=True):
         edge_str = '"%s" -> "%s" [label="%s"] ;\n'
         stream.write(edge_str % (source, target, edge_data['arc_label']))
+
+    stream.write('}\n')
 
     return g

@@ -8,17 +8,16 @@ from rdflib.extras.infixowl import (
 from rdflib import Namespace, Graph, OWL
 from rdflib.namespace import NamespaceManager
 
-ns = Namespace('http://plumdeq.xyz/ontologies/test/')
+ns = Namespace('http://plumdeq.xyz/ontologies/hypothesis/')
 ns_manager = NamespaceManager(Graph())
-ns_manager.bind('test', ns, override=False)
+ns_manager.bind('hypo', ns, override=False)
 ns_manager.bind('owl', OWL, override=False)
 g = Graph()
 g.namespace_manager = ns_manager
 
-# define filenames where we are writing ontologies
-onto_file = './ontologies/sample_hypothesis_ontology.owl'
 
-
+# ## Main classes
+#
 con = Class(ns.Continuant, graph=g)
 occ = Class(ns.Occurent, graph=g)
 
@@ -91,14 +90,17 @@ chondro_catabolism.subClassOf = [
         (positively_regulates | some | adamt_production)
     ]
 
-tnf_production.subClassOf = [
+tnf_overproduction.subClassOf = [
         (inhibits | some | chondro_anabolism),
-        (activates | some | chondro_catabolism),
+        (activates | some | chondro_catabolism)
+    ]
+
+tnf_production.subClassOf = [
         (increases_levels_of | some | tnf_alpha)
     ]
 
 mmp13_production.subClassOf = [
-        (reduces_levels_of | some | collagen),
+        (reduces_levels_of | some | collagen)
     ]
 
 adamt_production.subClassOf = [

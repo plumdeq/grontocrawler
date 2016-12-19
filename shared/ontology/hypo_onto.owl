@@ -1,0 +1,114 @@
+@prefix hypo: <http://plumdeq.xyz/ontologies/hypothesis/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+hypo:Adamt a owl:Class ;
+    rdfs:subClassOf hypo:Continuant .
+
+hypo:Chondrocytes a owl:Class ;
+    rdfs:subClassOf hypo:Continuant .
+
+hypo:Chondrocytes_apoptosis a owl:Class ;
+    rdfs:subClassOf hypo:Occurent .
+
+hypo:MMP13 a owl:Class ;
+    rdfs:subClassOf hypo:Continuant .
+
+hypo:TNF_alpha_overproduction a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty hypo:activates ;
+            owl:someValuesFrom hypo:Chondrocytes_catabolism_activity ],
+        [ a owl:Restriction ;
+            owl:onProperty hypo:inhibits ;
+            owl:someValuesFrom hypo:Chondrocytes_anabolism_activity ],
+        hypo:Occurent .
+
+hypo:capable_of a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Occurent .
+
+hypo:negatively_regulates a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Occurent .
+
+hypo:Adamt_production a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty hypo:reduces_levels_of ;
+            owl:someValuesFrom hypo:Protoaeglycan ],
+        hypo:Occurent .
+
+hypo:Chondrocytes_anabolism_activity a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty hypo:positively_regulates ;
+            owl:someValuesFrom hypo:Collagen_production ],
+        [ a owl:Restriction ;
+            owl:onProperty hypo:positively_regulates ;
+            owl:someValuesFrom hypo:Protoaeglycan_production ],
+        hypo:Occurent .
+
+hypo:Chondrocytes_catabolism_activity a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty hypo:positively_regulates ;
+            owl:someValuesFrom hypo:MMP13_production ],
+        [ a owl:Restriction ;
+            owl:onProperty hypo:positively_regulates ;
+            owl:someValuesFrom hypo:TNF_alpha_production ],
+        [ a owl:Restriction ;
+            owl:onProperty hypo:positively_regulates ;
+            owl:someValuesFrom hypo:Adamt_production ],
+        hypo:Occurent .
+
+hypo:Collagen_production a owl:Class ;
+    rdfs:subClassOf hypo:Occurent .
+
+hypo:Collagen_type_II a owl:Class ;
+    rdfs:subClassOf hypo:Continuant .
+
+hypo:MMP13_production a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty hypo:reduces_levels_of ;
+            owl:someValuesFrom hypo:Collagen_type_II ],
+        hypo:Occurent .
+
+hypo:Protoaeglycan a owl:Class ;
+    rdfs:subClassOf hypo:Continuant .
+
+hypo:Protoaeglycan_production a owl:Class ;
+    rdfs:subClassOf hypo:Occurent .
+
+hypo:TNF_alpha a owl:Class ;
+    rdfs:subClassOf hypo:Continuant .
+
+hypo:TNF_alpha_production a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty hypo:increases_levels_of ;
+            owl:someValuesFrom hypo:TNF_alpha ],
+        hypo:Occurent .
+
+hypo:activates a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Occurent .
+
+hypo:increases_levels_of a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Continuant .
+
+hypo:inhibits a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Occurent .
+
+hypo:reduces_levels_of a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Continuant .
+
+hypo:positively_regulates a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Occurent .
+
+hypo:Continuant a owl:Class .
+
+hypo:Occurent a owl:Class .
+
