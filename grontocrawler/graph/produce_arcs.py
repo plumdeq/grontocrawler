@@ -30,6 +30,7 @@ from grontocrawler.utils import utils
 def produce_existential_arc(restriction_bnode, g):
     """
     Memoized on `restriction` of type `BNode` production of existential arcs
+
     """
     # there can only be one restriction_bnode on one property
     # here we collect, source, label of the arc, and the target
@@ -49,7 +50,7 @@ def produce_existential_arc(restriction_bnode, g):
     arc_type     = str(OWL.someValuesFrom)
 
     arc_data = {
-        'label': arc_label,
+        'arc_label': arc_label,
         'arc_uri': arc_uri,
         'arc_type': arc_type
     }
@@ -62,6 +63,7 @@ def produce_existential_arc(restriction_bnode, g):
 def existential_arcs(g):
     """
     Go through triples of restrictions and look for a suitable pattern
+
     """
     arcs_itr = (produce_existential_arc(restriction_bnode, g)
                 for restriction_bnode in axiom_iterators.restriction_bnodes(g))
