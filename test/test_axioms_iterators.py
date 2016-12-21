@@ -57,3 +57,13 @@ def test_anonymous_class_bnodes():
     for restriction_bnode in restriction_bnodes(g):
         assert isinstance(restriction_bnode, BNode)
         assert (restriction_bnode, RDF.type, OWL.Restriction) in g
+
+# No bnodes as subject or object
+def test_is_axioms():
+    is_a_axioms = axiom_iterators.is_a_axioms
+
+    for triple in is_a_axioms(g):
+        s, p, o = triple
+        assert not isinstance(s, BNode)
+        assert not isinstance(o, BNode)
+        assert p == RDFS.subClassOf

@@ -70,3 +70,51 @@ def existential_arcs(g):
 
     for arc in arcs_itr:
         yield arc
+
+
+# ## Is-a arcs
+#
+# We divide into the `iteration`, and `arc creation`, the latter can be
+# `memoized`. Note that we do not check that both: `source` and `target` are
+# URIRefs, as it should be already taken care of by `is_a_axioms` generator.
+#
+# ```python
+#    # Extract is-a arcs of a, i.e.,
+#        (a, subof, b),
+#
+#    Should create "(a, b, b_data)"
+# ```
+
+
+@utils.memo
+def produce_is_a_arc(triple, g):
+    """
+    Memoized on `triple` for the production of is-a arcs
+
+    """
+    s, p, o = triple
+    # here we collect, source, label of the arc, and the target
+    source_id = str(s)
+    target_id = str(o)
+
+    arc_label    = entity_mapper.compute_short_name(p, g)
+    arc_uri      = str(p)
+    arc_type     = str(p)
+
+    arc_data = {
+        'arc_label': arc_label,
+        'arc_uri': arc_uri,
+        'arc_type': arc_type
+    }
+
+    arc = (source_id, target_id, arc_data)
+
+    return arc
+
+
+def is_a_arcs(g):
+    arcs_itr = (produce_is_a_arc(triple, g)
+                for triple in axiom_iterators.is_a_axioms(g))
+
+    for arc in arcs_itr:
+        yield arc

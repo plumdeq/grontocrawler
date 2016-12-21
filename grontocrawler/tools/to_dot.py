@@ -28,13 +28,15 @@ def main():
     parser.add_argument('-i', '--input-ontology', default=def_input)
     parser.add_argument('-f', '--ontology-format', default='turtle')
     parser.add_argument('-o', '--output-dot', default=def_output)
+    # rules for graph edge production
+    parser.add_argument('--options', nargs='+', default=None)
 
     args = parser.parse_args()
 
     g = Graph().parse(args.input_ontology, format=args.ontology_format)
 
     with open(args.output_dot, 'w') as f:
-        to_dot.to_dot(g, f)
+        to_dot.to_dot(g, stream=f, options=args.options)
 
 
 if __name__ == '__main__':

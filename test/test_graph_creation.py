@@ -46,17 +46,17 @@ from grontocrawler.axioms import axiom_iterators
 # ```
 #
 def test_existential_arcs():
-    label    = entity_mapper.compute_short_name(positively_regulates.identifier, g)
-    arc_type = str(OWL.someValuesFrom)
-    arc_uri  = str(positively_regulates.identifier)
-    source   = str(chondro_anabolism.identifier)
-    targets  = [
+    arc_label = entity_mapper.compute_short_name(positively_regulates.identifier, g)
+    arc_type  = str(OWL.someValuesFrom)
+    arc_uri   = str(positively_regulates.identifier)
+    source    = str(chondro_anabolism.identifier)
+    targets   = [
         str(collagen_production.identifier),
         str(protoaeglycan_production.identifier)
         ]
 
     arc_data = {
-        'arc_label': label,
+        'arc_label': arc_label,
         'arc_type': arc_type,
         'arc_uri': arc_uri
     }
@@ -67,6 +67,33 @@ def test_existential_arcs():
 
     arcs = [produce_arcs.produce_existential_arc(restriction_bnode, g)
             for restriction_bnode in restriction_bnodes]
+
+    for target in targets:
+        arc = (source, target, arc_data)
+        assert graph_utils.is_edge_in_edges(arc, arcs)
+
+
+# All is-a relations should be propagated among atomic classes only
+#
+def test_is_a_arcs():
+    arc_label = entity_mapper.compute_short_name(RDFS.subClassOf, g)
+    arc_uri   = str(RDFS.subClassOf)
+    arc_type  = str(RDFS.subClassOf)
+
+    source    = str(tnf_alpha.identifier)
+    targets   = [str(con.identifier)]
+
+    arc_data = {
+        'arc_label': arc_label,
+        'arc_type': arc_type,
+        'arc_uri': arc_uri
+    }
+
+    # find is-a axioms
+    is_a_axioms = list(axiom_iterators.is_a_axioms(g))
+
+    arcs = [produce_arcs.produce_is_a_arc(is_a_axiom, g)
+            for is_a_axiom in is_a_axioms]
 
     for target in targets:
         arc = (source, target, arc_data)
