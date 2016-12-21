@@ -14,7 +14,7 @@ from grontocrawler.graph import produce_graph
 
 # Creat `dot` from digraph representation
 #
-def to_dot(g, stream=sys.stdout):
+def to_dot(g, stream=sys.stdout, options=None):
     """
     Args:
         - g (rdflib.graph): RDF graph to transform into `dot` representation
@@ -23,7 +23,9 @@ def to_dot(g, stream=sys.stdout):
         - (graph): `dot` representation of the graph
 
     """
-    digraph = produce_graph.produce_graph(g)
+    digraph = produce_graph.produce_graph(g, options=options)
+
+    stream.write('digraph g {\n')
 
     # draw nodes, i.e.
     for (node, node_data) in digraph.nodes_iter(data=True):
@@ -33,5 +35,7 @@ def to_dot(g, stream=sys.stdout):
     for (source, target, edge_data) in digraph.edges_iter(data=True):
         edge_str = '"%s" -> "%s" [label="%s"] ;\n'
         stream.write(edge_str % (source, target, edge_data['arc_label']))
+
+    stream.write('}\n')
 
     return g

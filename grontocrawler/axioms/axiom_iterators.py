@@ -29,6 +29,14 @@ def subclass_axioms(g):
         yield triple
 
 
+# Only among atomic OWL classes
+def is_a_axioms(g):
+    for triple in g.triples((None, RDFS.subClassOf, None)):
+        s, p, o  = triple
+        if not isinstance(s, BNode) and not isinstance(o, BNode):
+            yield triple
+
+
 def owl_class_uris(g):
     """
     Extracts uris of all OWL classes, which are not BNodes
