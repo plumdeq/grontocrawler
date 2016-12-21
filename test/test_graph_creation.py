@@ -108,6 +108,7 @@ def test_number_nodes():
     assert num_classes == len(list(produce_nodes.produce_nodes(g)))
 
 # Test some specific nodes which should correspond to existing classes
+#
 def test_produce_nodes():
     node_id = str(con.identifier)
     node_label = entity_mapper.compute_short_name(con.identifier, g)
