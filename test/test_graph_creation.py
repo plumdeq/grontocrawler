@@ -56,7 +56,7 @@ def test_existential_arcs():
         ]
 
     arc_data = {
-        'label': label,
+        'arc_label': label,
         'arc_type': arc_type,
         'arc_uri': arc_uri
     }
@@ -87,7 +87,7 @@ def test_produce_nodes():
     node_uri = node_id
 
     node_data = {
-        'label': node_label,
+        'node_label': node_label,
         'node_uri': node_uri
     }
 
