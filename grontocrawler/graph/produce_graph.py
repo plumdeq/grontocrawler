@@ -25,6 +25,10 @@ def produce_graph(g, options=OPTIONS):
     Convert owl classes to nodes, and extract arcs from restrictions
 
     """
+    # apparently `default` parameter in the `def` does not capture the case
+    # when `options == None -> True`
+    options = options or OPTIONS
+
     nodes = produce_nodes.produce_nodes(g)
     arcs = produce_all_arcs(g, options=options)
 

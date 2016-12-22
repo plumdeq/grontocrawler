@@ -5,7 +5,7 @@
 from rdflib.extras.infixowl import (
         Class, Property, CastClass, some
     )
-from rdflib import Namespace, Graph, OWL
+from rdflib import Namespace, Graph, OWL, Literal
 from rdflib.namespace import NamespaceManager
 
 ns = Namespace('http://plumdeq.xyz/ontologies/hypothesis/')
@@ -18,19 +18,20 @@ g.namespace_manager = ns_manager
 
 # ## Main classes
 #
-con = Class(ns.Continuant, graph=g)
-occ = Class(ns.Occurent, graph=g)
+con = Class(ns.Continuant, graph=g, comment=Literal('Material entity. Examples: cells, molecules, joints'))
+occ = Class(ns.Occurent, graph=g, comment=Literal('Occuring processes, which start and end at some point'))
 
 # ##  Properties
 
 # Main properties, such as `capable of`, `negatively regulates`
-capable_of               =     Property(ns.capable_of, graph=g, domain=[occ], range=[occ])
-negatively_regulates     =     Property(ns.negatively_regulates, graph=g, domain=[occ], range=[occ])
-positively_regulates     =     Property(ns.positively_regulates, graph=g, domain=[occ], range=[occ])
-reduces_levels_of        =     Property(ns.reduces_levels_of, graph=g, domain=[occ], range=[con])
-increases_levels_of      =     Property(ns.increases_levels_of, graph=g, domain=[occ], range=[con])
-inhibits                 =     Property(ns.inhibits, graph=g, domain=[occ], range=[occ])
-activates                =     Property(ns.activates, graph=g, domain=[occ], range=[occ])
+capable_of = Property(ns.capable_of, graph=g, domain=[occ], range=[occ])
+negatively_regulates = Property(ns.negatively_regulates, graph=g, domain=[occ], range=[occ])
+positively_regulates = Property(ns.positively_regulates, graph=g, domain=[occ], range=[occ])
+reduces_levels_of = Property(ns.reduces_levels_of, graph=g, domain=[occ], range=[con])
+increases_levels_of = Property(ns.increases_levels_of, graph=g, domain=[occ], range=[con])
+inhibits = Property(ns.inhibits, graph=g, domain=[occ], range=[occ])
+activates = Property(ns.activates, graph=g, domain=[occ], range=[occ])
+results_in = Property(ns.results_in, graph=g, domain=[occ], range=[occ])
 
 # ## Atomic continuants
 #
@@ -41,12 +42,42 @@ activates                =     Property(ns.activates, graph=g, domain=[occ], ran
 # * cytokines (biomolecules), pro-inflammatory guys
 # * tnf-alpha (biomolecule), mmp13 (enzyme), adamt (enzyme) bad guys
 # * collagen, protoglyecan (macro-molecules) good guys
-chondrocytes = Class(ns.Chondrocytes, graph=g, subClassOf=[con])
-collagen = Class(ns.Collagen_type_II, graph=g, subClassOf=[con])
-protoaeglycan = Class(ns.Protoaeglycan, graph=g, subClassOf=[con])
-tnf_alpha = Class(ns.TNF_alpha, graph=g, subClassOf=[con])
-mmp13 = Class(ns.MMP13, graph=g, subClassOf=[con])
-adamt = Class(ns.Adamt, graph=g, subClassOf=[con])
+chondrocytes = Class(
+        ns.Chondrocytes,
+        graph=g,
+        subClassOf=[con],
+        comment=Literal('Chondrocytes are the ontly cells in the knee cartilage')
+    )
+collagen = Class(
+        ns.Collagen_type_II,
+        graph=g,
+        subClassOf=[con],
+        comment=Literal('Collagen type II, macromolecule, together with Protoaeglycans, are the main building blocks of the cartilage.')
+    )
+protoaeglycan = Class(
+        ns.Protoaeglycan,
+        graph=g,
+        subClassOf=[con],
+        comment=Literal('A macromolecule, together with Collagen are the main building blocks of the cartilage')
+    )
+tnf_alpha = Class(
+        ns.TNF_alpha,
+        graph=g,
+        subClassOf=[con],
+        comment=Literal('A biomolecule which is capable of inhibiting collagen and protaeglycan production, the latter are necessary for the molecular stability of the cartilage')
+    )
+mmp13 = Class(
+        ns.MMP13,
+        graph=g,
+        subClassOf=[con],
+        comment=Literal('Enzyme which is capable of catalyzing chondrocytes catabolism activity, i.e., break down of collagen and protoaeglycans')
+    )
+adamt = Class(
+        ns.Adamt,
+        graph=g,
+        subClassOf=[con],
+        comment=Literal('Enzyme which is capable of catalyzing chondrocytes catabolism activity, i.e., break down of collagen and protoaeglycans')
+    )
 
 # ## Atomic occurrents
 #
@@ -54,11 +85,31 @@ adamt = Class(ns.Adamt, graph=g, subClassOf=[con])
 # production of certain molecules and destruction or disassembly of certain
 # molecules
 
-# processes linked with `chondrocytes`
-chondro_anabolism = Class(ns.Chondrocytes_anabolism_activity, graph=g, subClassOf=[occ])
-chondro_catabolism = Class(ns.Chondrocytes_catabolism_activity, graph=g, subClassOf=[occ])
-chondro_apoptosis = Class(ns.Chondrocytes_apoptosis, graph=g, subClassOf=[occ])
-
+# ## Processes linked with `chondrocytes`
+chondro_anabolism = Class(
+        ns.Chondrocytes_anabolism_activity,
+        graph=g,
+        subClassOf=[occ],
+        comment=Literal('Chondrocytes anabolism activity is the process of construction of molecules from smaller units')
+    )
+chondro_catabolism = Class(
+        ns.Chondrocytes_catabolism_activity,
+        graph=g,
+        subClassOf=[occ],
+        comment=Literal('Chondrocytes catabolism activity is the process of separation of molecules. Opposite of chondrocytes anabolism')
+    )
+chondro_apoptosis = Class(
+        ns.Chondrocytes_apoptosis,
+        graph=g,
+        subClassOf=[occ],
+        comment=Literal('Chondrocytes apoptosis is the process where the chondrocytes, cells, are dying')
+    )
+chondro_hyper = Class(
+        ns.Chondrocytes_hypertrophy,
+        graph=g,
+        subClassOf=[occ],
+        comment=Literal('Increase in the volume of an organ or tissue due ot the enlargement of its component cells')
+    )
 
 # processes linked with production of molecules
 collagen_production = Class(ns.Collagen_production, graph=g, subClassOf=[occ])
@@ -69,6 +120,14 @@ adamt_production = Class(ns.Adamt_production, graph=g, subClassOf=[occ])
 
 # processes which are hidden, our system should suggest them
 tnf_overproduction = Class(ns.TNF_alpha_overproduction, graph=g, subClassOf=[occ])
+
+# ## Processes outside cellular level
+mechanical_overloading = Class(
+        ns.Mechanical_overloading,
+        graph=g,
+        subClassOf=[occ],
+        comment=Literal('Mechanical overloading of the cartilage, environmental factor')
+    )
 
 # ## Causal relations via restrictions
 #
@@ -90,6 +149,12 @@ chondro_catabolism.subClassOf = [
         (positively_regulates | some | adamt_production)
     ]
 
+chondro_hyper.subClassOf = [
+        (positively_regulates | some | mmp13_production),
+        (positively_regulates | some | adamt_production),
+        (negatively_regulates | some | chondro_anabolism)
+    ]
+
 tnf_overproduction.subClassOf = [
         (inhibits | some | chondro_anabolism),
         (activates | some | chondro_catabolism)
@@ -105,4 +170,11 @@ mmp13_production.subClassOf = [
 
 adamt_production.subClassOf = [
         (reduces_levels_of | some | protoaeglycan)
+    ]
+
+# ## Causal relations outside of the cellular level
+#
+mechanical_overloading.subClassOf = [
+        (results_in | some | chondro_catabolism),
+        (results_in | some | chondro_apoptosis)
     ]
