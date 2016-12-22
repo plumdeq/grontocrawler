@@ -41,7 +41,7 @@ from grontocrawler.axioms import axiom_iterators
 # ```python
 # chondro_anabolism.subClassOf = [
 #         (positively_regulates | some | collagen_production),
-#         (positively_regulates | some | protoaeglycan_production)
+#         (positively_regulates | some | proteoglycan_production)
 #     ]
 # ```
 #
@@ -52,7 +52,7 @@ def test_existential_arcs():
     source    = str(chondro_anabolism.identifier)
     targets   = [
         str(collagen_production.identifier),
-        str(protoaeglycan_production.identifier)
+        str(proteoglycan_production.identifier)
         ]
 
     arc_data = {
