@@ -66,8 +66,8 @@ def test_remove_duplicate_restrictions():
     a3 = negatively_regulates | some | tnf_alpha
 
     # create some orphan restrictions, which should not be deleted
-    b1 = negatively_regulates | some | chondro_anabolism
-    b2 = negatively_regulates | some | chondro_catabolism
+    b1 = negatively_regulates | some | bone_erosion
+    b2 = negatively_regulates | some | joint_deformation
 
     assert len(list(bnode_utils.orphan_restrictions(g))) == 5
 
