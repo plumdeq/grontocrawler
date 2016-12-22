@@ -25,7 +25,6 @@ from grontocrawler.utils import utils
 #
 #    Should extract "c"
 # ```
-
 @utils.memo
 def produce_existential_arc(restriction_bnode, g):
     """
@@ -45,9 +44,9 @@ def produce_existential_arc(restriction_bnode, g):
     source_id = str(source_cls)
     target_id = str(r_successor)
 
-    arc_label    = entity_mapper.compute_short_name(obj_property, g)
-    arc_uri      = str(obj_property)
-    arc_type     = str(OWL.someValuesFrom)
+    arc_label = entity_mapper.compute_short_name(obj_property, g)
+    arc_uri   = str(obj_property)
+    arc_type  = str(OWL.someValuesFrom)
 
     arc_data = {
         'arc_label': arc_label,
@@ -84,8 +83,6 @@ def existential_arcs(g):
 #
 #    Should create "(a, b, b_data)"
 # ```
-
-
 @utils.memo
 def produce_is_a_arc(triple, g):
     """
@@ -97,9 +94,9 @@ def produce_is_a_arc(triple, g):
     source_id = str(s)
     target_id = str(o)
 
-    arc_label    = entity_mapper.compute_short_name(p, g)
-    arc_uri      = str(p)
-    arc_type     = str(p)
+    arc_label = entity_mapper.compute_short_name(p, g)
+    arc_uri   = str(p)
+    arc_type  = str(p)
 
     arc_data = {
         'arc_label': arc_label,
