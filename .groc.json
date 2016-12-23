@@ -1,0 +1,8 @@
+{
+    "out": "./doc/groc"
+    , "glob": [
+        "./grontocrawler/**/*.py",
+        "./test/*.py",
+        "./doc/groc-src/*.md"
+    ]
+}

@@ -8,5 +8,6 @@ ontology/*
 **/.ropeproject
 catalog*xml
 ontology/benchmark/*
-doc/build/*
+doc/sphinx/build/*
+doc/groc/*
 .coverage*
