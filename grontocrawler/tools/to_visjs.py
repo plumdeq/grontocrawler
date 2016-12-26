@@ -38,7 +38,7 @@ def main():
     # Parse OWL ontology
     g = Graph().parse(args.input_ontology, format=args.ontology_format)
     # Convert to networkx
-    digraph = produce_graph.produce_graph(g)
+    digraph = produce_graph.produce_graph(g, options=args.options)
 
     # Write nodes
     with open(args.output_nodes, 'w') as f:
