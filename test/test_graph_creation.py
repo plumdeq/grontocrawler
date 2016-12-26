@@ -56,7 +56,7 @@ def test_existential_arcs():
         ]
 
     arc_data = {
-        'arc_label': arc_label,
+        'label': arc_label,
         'arc_type': arc_type,
         'arc_uri': arc_uri
     }
@@ -84,7 +84,7 @@ def test_is_a_arcs():
     targets   = [str(con.identifier)]
 
     arc_data = {
-        'arc_label': arc_label,
+        'label': arc_label,
         'arc_type': arc_type,
         'arc_uri': arc_uri
     }
@@ -115,7 +115,7 @@ def test_produce_nodes():
     node_uri = node_id
 
     node_data = {
-        'node_label': node_label,
+        'label': node_label,
         'node_uri': node_uri
     }
 

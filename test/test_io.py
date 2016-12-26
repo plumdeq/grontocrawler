@@ -50,7 +50,7 @@ def nx_graph():
 def test_nodes_visjs(nx_graph):
     digraph = nx_graph
 
-    visjs_nodes = list(to_visjs.convert_nodes(digraph))
+    visjs_nodes = list(to_visjs.to_visjs_nodes(digraph))
     # since the format of nx nodes and visjs nodes stays the same, we only
     # check the length of the nodes list
     assert len(visjs_nodes) == len(digraph.nodes())
@@ -59,7 +59,7 @@ def test_nodes_visjs(nx_graph):
 def test_edges_visjs(nx_graph):
     digraph = nx_graph
 
-    visjs_arcs = list(to_visjs.convert_arcs(digraph))
+    visjs_arcs = list(to_visjs.to_visjs_arcs(digraph))
     # should be same number of arcs, and each arc should have same from and
     # same to
     assert len(visjs_arcs) == len(digraph.edges())
