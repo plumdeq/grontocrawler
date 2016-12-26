@@ -6,6 +6,7 @@ setup(name='grontocrawler',
       author='Asan Agibetov',
       author_email='asan.agibetov@gmail.com',
       url='grontocrawler.plumdeq.xyz',
+      packages=['grontocrawler'],
       install_requires=[
           'networkx',
           'rdflib',
