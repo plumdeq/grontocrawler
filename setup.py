@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='grontocrawler',
-      version='0.3.5',
+      version='0.3.6',
       description='transformation of OWL ontologies into graphs',
       author='Asan Agibetov',
       author_email='asan.agibetov@gmail.com',
