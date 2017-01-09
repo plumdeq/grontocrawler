@@ -24,7 +24,7 @@ def produce_node(owl_class_uri, g):
     node_uri = node_id
 
     node_data = {
-            'node_label': node_label,
+            'label': node_label,
             'node_uri': node_uri
         }
 

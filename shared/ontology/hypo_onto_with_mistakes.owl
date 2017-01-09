@@ -5,8 +5,8 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-hypo:Aggrecanase_ADAMTs a owl:Class ;
-    rdfs:comment "Enzyme which is capable of catalyzing chondrocytes catabolic activity, i.e., break down of collagen and proteoglycans" ;
+hypo:Adamt a owl:Class ;
+    rdfs:comment "Enzyme which is capable of catalyzing chondrocytes catabolism activity, i.e., break down of collagen and proteoglycans" ;
     rdfs:subClassOf hypo:Continuant .
 
 hypo:Chondrocytes a owl:Class ;
@@ -16,8 +16,11 @@ hypo:Chondrocytes a owl:Class ;
 hypo:Chondrocytes_hypertrophy a owl:Class ;
     rdfs:comment "Increase in the volume of an organ or tissue due ot the enlargement of its component cells" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty hypo:positively_regulates ;
-            owl:someValuesFrom hypo:Aggrecanase_ADAMTs_production ],
+            owl:onProperty hypo:results_in ;
+            owl:someValuesFrom hypo:Osteophyte_formation ],
+        [ a owl:Restriction ;
+            owl:onProperty hypo:negatively_regulates ;
+            owl:someValuesFrom hypo:Chondrocytes_anabolism_activity ],
         [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
             owl:someValuesFrom hypo:Cartilage_calcification ],
@@ -25,11 +28,8 @@ hypo:Chondrocytes_hypertrophy a owl:Class ;
             owl:onProperty hypo:positively_regulates ;
             owl:someValuesFrom hypo:MMP13_production ],
         [ a owl:Restriction ;
-            owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Osteophyte_formation ],
-        [ a owl:Restriction ;
-            owl:onProperty hypo:negatively_regulates ;
-            owl:someValuesFrom hypo:Chondrocytes_anabolic_activity ],
+            owl:onProperty hypo:positively_regulates ;
+            owl:someValuesFrom hypo:Adamt_production ],
         hypo:Occurent .
 
 hypo:Collagen_type_II a owl:Class ;
@@ -47,17 +47,17 @@ hypo:Ligamentous_laxity a owl:Class ;
         hypo:Condition .
 
 hypo:MMP13 a owl:Class ;
-    rdfs:comment "Enzyme which is capable of catalyzing chondrocytes catabolic activity, i.e., break down of collagen and proteoglycans" ;
+    rdfs:comment "Enzyme which is capable of catalyzing chondrocytes catabolism activity, i.e., break down of collagen and proteoglycans" ;
     rdfs:subClassOf hypo:Continuant .
 
 hypo:Mechanical_overloading a owl:Class ;
     rdfs:comment "Mechanical overloading of the cartilage, environmental factor" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Cartilage_degeneration ],
+            owl:someValuesFrom hypo:Chondrocytes_catabolism_activity ],
         [ a owl:Restriction ;
-            owl:onProperty hypo:positively_regulates ;
-            owl:someValuesFrom hypo:Chondrocytes_catabolic_activity ],
+            owl:onProperty hypo:results_in ;
+            owl:someValuesFrom hypo:Cartilage_degeneration ],
         [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
             owl:someValuesFrom hypo:Meniscal_tear ],
@@ -74,32 +74,13 @@ hypo:Swelling_of_knee a owl:Class ;
     rdfs:comment "Knee effusion, or water on the knee, or knee swelling is a condition" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Joint_functional_impairment ],
+            owl:someValuesFrom hypo:Joint_deformation ],
         [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Joint_deformation ],
+            owl:someValuesFrom hypo:Joint_functional_impairment ],
         hypo:Condition .
 
-hypo:TNF_alpha a owl:Class ;
-    rdfs:comment "A biomolecule which is capable of inhibiting collagen and protaeglycan production, the latter are necessary for the molecular stability of the cartilage" ;
-    rdfs:subClassOf hypo:Continuant .
-
-hypo:activates a owl:ObjectProperty ;
-    rdfs:domain hypo:Occurent ;
-    rdfs:range hypo:Occurent .
-
 hypo:capable_of a owl:ObjectProperty ;
-    rdfs:domain hypo:Occurent ;
-    rdfs:range hypo:Occurent .
-
-hypo:identifier a owl:Ontology ;
-    rdfs:comment "defined by: Asan Agibetov, Marta Ondresik, Ernesto Jimenez-Ruiz" .
-
-hypo:increases_levels_of a owl:ObjectProperty ;
-    rdfs:domain hypo:Occurent ;
-    rdfs:range hypo:Continuant .
-
-hypo:inhibits a owl:ObjectProperty ;
     rdfs:domain hypo:Occurent ;
     rdfs:range hypo:Occurent .
 
@@ -123,12 +104,16 @@ hypo:Cartilage_calcification a owl:Class ;
 
 hypo:Chondrocytes_apoptosis a owl:Class ;
     rdfs:comment "Chondrocytes apoptosis is the process where the chondrocytes, cells, are dying" ;
+    rdfs:subClassOf hypo:Occurent .
+
+hypo:Collagen_catabolism a owl:Class ;
+    rdfs:comment "Catabolism of collagen molecules, a process which reduces the levels of collagen molecules" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Loss_of_collagen ],
+            owl:someValuesFrom hypo:Decrease_of_cartilage_elasticity ],
         [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Loss_of_proteoglycan ],
+            owl:someValuesFrom hypo:Biochemical_imbalance ],
         hypo:Occurent .
 
 hypo:Collagen_production a owl:Class ;
@@ -144,6 +129,16 @@ hypo:Osteophyte_formation a owl:Class ;
             owl:someValuesFrom hypo:Joint_deformation ],
         hypo:Occurent .
 
+hypo:Proteoglycan_catabolism a owl:Class ;
+    rdfs:comment "Catabolism of proteoglycan molecules, a process which reduces the levels of proteoglycan molecules" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty hypo:results_in ;
+            owl:someValuesFrom hypo:Decrease_of_cartilage_elasticity ],
+        [ a owl:Restriction ;
+            owl:onProperty hypo:results_in ;
+            owl:someValuesFrom hypo:Biochemical_imbalance ],
+        hypo:Occurent .
+
 hypo:Proteoglycan_production a owl:Class ;
     rdfs:subClassOf hypo:Occurent .
 
@@ -151,22 +146,32 @@ hypo:Synovial_inflammation a owl:Class ;
     rdfs:comment "Inflammation in a synovial joint" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
+            owl:someValuesFrom hypo:TNF_alpha_overproduction ],
+        [ a owl:Restriction ;
+            owl:onProperty hypo:results_in ;
             owl:someValuesFrom hypo:Knee_pain ],
         [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
             owl:someValuesFrom hypo:Joint_deformation ],
-        [ a owl:Restriction ;
-            owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:TNF_alpha_overproduction ],
         hypo:Occurent .
+
+hypo:TNF_alpha a owl:Class ;
+    rdfs:comment "A biomolecule which is capable of inhibiting collagen and protaeglycan production, the latter are necessary for the molecular stability of the cartilage" ;
+    rdfs:subClassOf hypo:Continuant .
 
 hypo:TNF_alpha_overproduction a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty hypo:positively_regulates ;
-            owl:someValuesFrom hypo:Chondrocytes_catabolic_activity ],
+            owl:onProperty hypo:inhibits ;
+            owl:someValuesFrom hypo:Chondrocytes_anabolism_activity ],
         [ a owl:Restriction ;
-            owl:onProperty hypo:negatively_regulates ;
-            owl:someValuesFrom hypo:Chondrocytes_anabolic_activity ],
+            owl:onProperty hypo:activates ;
+            owl:someValuesFrom hypo:Chondrocytes_catabolism_activity ],
+        hypo:Occurent .
+
+hypo:TNF_alpha_production a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty hypo:increases_levels_of ;
+            owl:someValuesFrom hypo:TNF_alpha ],
         hypo:Occurent .
 
 hypo:Water_content_increase_in_cartilage a owl:Class ;
@@ -176,40 +181,55 @@ hypo:Water_content_increase_in_cartilage a owl:Class ;
             owl:someValuesFrom hypo:Diminution_of_load_bearing_capacity_of_cartilage ],
         hypo:Occurent .
 
-hypo:Aggrecanase_ADAMTs_production a owl:Class ;
+hypo:increases_levels_of a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Continuant .
+
+hypo:inhibits a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Occurent .
+
+hypo:negatively_regulates a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Occurent .
+
+hypo:Adamt_production a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Loss_of_proteoglycan ],
+            owl:onProperty hypo:activates ;
+            owl:someValuesFrom hypo:Proteoglycan_catabolism ],
         hypo:Occurent .
 
 hypo:Biochemical_imbalance a owl:Class ;
     rdfs:comment "Biochemical imbalance in the cartilage" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Diminution_of_load_bearing_capacity_of_cartilage ],
+            owl:someValuesFrom hypo:Water_content_increase_in_cartilage ],
         [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Water_content_increase_in_cartilage ],
+            owl:someValuesFrom hypo:Diminution_of_load_bearing_capacity_of_cartilage ],
         hypo:Occurent .
 
-hypo:Chondrocytes_anabolic_activity a owl:Class ;
-    rdfs:comment "Chondrocytes anabolic activity is the process of construction of molecules from smaller units" ;
+hypo:Chondrocytes_anabolism_activity a owl:Class ;
+    rdfs:comment "Chondrocytes anabolism activity is the process of construction of molecules from smaller units" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty hypo:positively_regulates ;
-            owl:someValuesFrom hypo:Proteoglycan_production ],
-        [ a owl:Restriction ;
             owl:onProperty hypo:positively_regulates ;
             owl:someValuesFrom hypo:Collagen_production ],
-        hypo:Occurent .
-
-hypo:Chondrocytes_catabolic_activity a owl:Class ;
-    rdfs:comment "Chondrocytes catabolic activity is the process of separation of molecules. Opposite of chondrocytes anabolism" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty hypo:positively_regulates ;
-            owl:someValuesFrom hypo:MMP13_production ],
         [ a owl:Restriction ;
             owl:onProperty hypo:positively_regulates ;
-            owl:someValuesFrom hypo:Aggrecanase_ADAMTs_production ],
+            owl:someValuesFrom hypo:Proteoglycan_production ],
+        hypo:Occurent .
+
+hypo:Chondrocytes_catabolism_activity a owl:Class ;
+    rdfs:comment "Chondrocytes catabolism activity is the process of separation of molecules. Opposite of chondrocytes anabolism" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty hypo:positively_regulates ;
+            owl:someValuesFrom hypo:Adamt_production ],
+        [ a owl:Restriction ;
+            owl:onProperty hypo:positively_regulates ;
+            owl:someValuesFrom hypo:TNF_alpha_production ],
+        [ a owl:Restriction ;
+            owl:onProperty hypo:positively_regulates ;
+            owl:someValuesFrom hypo:MMP13_production ],
         hypo:Occurent .
 
 hypo:Decrease_of_cartilage_elasticity a owl:Class ;
@@ -219,38 +239,15 @@ hypo:Decrease_of_cartilage_elasticity a owl:Class ;
             owl:someValuesFrom hypo:Diminution_of_load_bearing_capacity_of_cartilage ],
         hypo:Occurent .
 
-hypo:Loss_of_collagen a owl:Class ;
-    rdfs:comment "Loss of collagen molecules, a process which reduces the levels of collagen molecules" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Decrease_of_cartilage_elasticity ],
-        [ a owl:Restriction ;
-            owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Biochemical_imbalance ],
-        hypo:Occurent .
-
-hypo:Loss_of_proteoglycan a owl:Class ;
-    rdfs:comment "Loss of proteoglycan molecules, a process which reduces the levels of proteoglycan molecules" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Biochemical_imbalance ],
-        [ a owl:Restriction ;
-            owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Decrease_of_cartilage_elasticity ],
-        hypo:Occurent .
-
 hypo:MMP13_production a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Loss_of_collagen ],
+            owl:onProperty hypo:activates ;
+            owl:someValuesFrom hypo:Collagen_catabolism ],
         hypo:Occurent .
 
 hypo:Meniscal_tear a owl:Class ;
     rdfs:comment "Tear of meniscus, meniscus breakdown" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Knee_pain ],
-        [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
             owl:someValuesFrom hypo:Cartilage_degeneration ],
         [ a owl:Restriction ;
@@ -258,25 +255,29 @@ hypo:Meniscal_tear a owl:Class ;
             owl:someValuesFrom hypo:Joint_functional_impairment ],
         hypo:Condition .
 
-hypo:negatively_regulates a owl:ObjectProperty ;
-    rdfs:domain hypo:Occurent ;
-    rdfs:range hypo:Occurent .
-
 hypo:Cartilage_degeneration a owl:Class ;
     rdfs:comment "Cartilage degeneration is a generic process where the surface of cartilage is being degenerated" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Meniscal_tear ],
+            owl:someValuesFrom hypo:Joint_functional_impairment ],
         [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
             owl:someValuesFrom hypo:Synovial_inflammation ],
         [ a owl:Restriction ;
             owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Joint_functional_impairment ],
-        [ a owl:Restriction ;
-            owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Knee_pain ],
+            owl:someValuesFrom hypo:Meniscal_tear ],
         hypo:Occurent .
+
+hypo:Knee_pain a owl:Class ;
+    rdfs:comment "Knee pain, chronic or acute" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty hypo:results_in ;
+            owl:someValuesFrom hypo:Joint_functional_impairment ],
+        hypo:Condition .
+
+hypo:activates a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Occurent .
 
 hypo:Condition a owl:Class ;
     rdfs:comment "Medical condition. Could be a pathology or a disorder" .
@@ -302,24 +303,17 @@ hypo:Joint_functional_impairment a owl:Class ;
     rdfs:comment "Reduction of joint movement range" ;
     rdfs:subClassOf hypo:Occurent .
 
-hypo:Knee_pain a owl:Class ;
-    rdfs:comment "Knee pain, chronic or acute" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty hypo:results_in ;
-            owl:someValuesFrom hypo:Joint_functional_impairment ],
-        hypo:Condition .
+hypo:positively_regulates a owl:ObjectProperty ;
+    rdfs:domain hypo:Occurent ;
+    rdfs:range hypo:Occurent .
 
 hypo:Continuant a owl:Class ;
     rdfs:comment "Material entity. Examples: cells, molecules, joints" .
 
-hypo:positively_regulates a owl:ObjectProperty ;
+hypo:results_in a owl:ObjectProperty ;
     rdfs:domain hypo:Occurent ;
     rdfs:range hypo:Occurent .
 
 hypo:Occurent a owl:Class ;
     rdfs:comment "Occuring processes, which start and end at some point" .
-
-hypo:results_in a owl:ObjectProperty ;
-    rdfs:domain hypo:Occurent ;
-    rdfs:range hypo:Occurent .
 

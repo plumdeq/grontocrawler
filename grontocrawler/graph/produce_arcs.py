@@ -49,7 +49,7 @@ def produce_existential_arc(restriction_bnode, g):
     arc_type  = str(OWL.someValuesFrom)
 
     arc_data = {
-        'arc_label': arc_label,
+        'label': arc_label,
         'arc_uri': arc_uri,
         'arc_type': arc_type
     }
@@ -99,7 +99,7 @@ def produce_is_a_arc(triple, g):
     arc_type  = str(p)
 
     arc_data = {
-        'arc_label': arc_label,
+        'label': arc_label,
         'arc_uri': arc_uri,
         'arc_type': arc_type
     }

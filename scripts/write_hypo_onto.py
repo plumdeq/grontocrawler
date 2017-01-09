@@ -10,7 +10,7 @@ import sys
 
 
 gronto_folder = os.path.dirname(os.path.abspath(__file__))
-gronto_folder = os.path.join(gronto_folder, '../..')
+gronto_folder = os.path.join(gronto_folder, '..')
 sys.path.insert(0, gronto_folder)
 
 from rdflib import Graph

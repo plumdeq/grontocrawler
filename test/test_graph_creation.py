@@ -15,7 +15,7 @@ from rdflib.extras.infixowl import CastClass
 # please note, that in our environment, after importing `sample_ontology`, we
 # will have many variables such as mapped OWL classes and `g, ns` - rdflib
 # graph, and the namespace
-from grontocrawler.sample_ontology.hypo_ontology import *
+from grontocrawler.sample_ontology.hypo_ontology_with_mistakes import *
 from grontocrawler.graph import produce_arcs, produce_nodes
 from grontocrawler.entity_mapper import entity_mapper
 from grontocrawler.utils import graph_utils
@@ -56,7 +56,7 @@ def test_existential_arcs():
         ]
 
     arc_data = {
-        'arc_label': arc_label,
+        'label': arc_label,
         'arc_type': arc_type,
         'arc_uri': arc_uri
     }
@@ -84,7 +84,7 @@ def test_is_a_arcs():
     targets   = [str(con.identifier)]
 
     arc_data = {
-        'arc_label': arc_label,
+        'label': arc_label,
         'arc_type': arc_type,
         'arc_uri': arc_uri
     }
@@ -115,7 +115,7 @@ def test_produce_nodes():
     node_uri = node_id
 
     node_data = {
-        'node_label': node_label,
+        'label': node_label,
         'node_uri': node_uri
     }
 
