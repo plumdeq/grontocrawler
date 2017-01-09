@@ -16,7 +16,7 @@ from rdflib import RDF, RDFS, OWL, BNode, URIRef
 # please note, that in our environment, after importing `sample_ontology`, we
 # will have many variables such as mapped OWL classes and `g, ns` - rdflib
 # graph, and the namespace
-from grontocrawler.sample_ontology.hypo_ontology import *
+from grontocrawler.sample_ontology.hypo_ontology_with_mistakes import *
 from grontocrawler.axioms import axiom_iterators
 
 # Check that subclass axioms are correctly iterated

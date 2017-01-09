@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 
 # # Sample ontology on which we test grontocrawler
+#
+# Please pay attention that it does contain some mistakes
+#
 from rdflib.extras.infixowl import (
-        Ontology, Class, Property, CastClass, some
+        Class, Property, CastClass, some
     )
 from rdflib import Namespace, Graph, OWL, Literal
 from rdflib.namespace import NamespaceManager
@@ -14,12 +17,6 @@ ns_manager.bind('hypo', ns, override=False)
 ns_manager.bind('owl', OWL, override=False)
 g = Graph()
 g.namespace_manager = ns_manager
-
-
-ontology = Ontology(
-        ns.identifier,
-        comment=Literal('defined by: Asan Agibetov, Marta Ondresik, Ernesto Jimenez-Ruiz'),
-        graph=g)
 
 
 # ## Main classes
@@ -81,14 +78,14 @@ mmp13 = Class(
         ns.MMP13,
         graph=g,
         subClassOf=[con],
-        comment=Literal('Enzyme which is capable of catalyzing chondrocytes catabolic activity, i.e., break down of collagen and proteoglycans')
+        comment=Literal('Enzyme which is capable of catalyzing chondrocytes catabolism activity, i.e., break down of collagen and proteoglycans')
     )
 
 adamt = Class(
-        ns.Aggrecanase_ADAMTs,
+        ns.Adamt,
         graph=g,
         subClassOf=[con],
-        comment=Literal('Enzyme which is capable of catalyzing chondrocytes catabolic activity, i.e., break down of collagen and proteoglycans')
+        comment=Literal('Enzyme which is capable of catalyzing chondrocytes catabolism activity, i.e., break down of collagen and proteoglycans')
     )
 
 # ## Atomic occurrents
@@ -98,18 +95,18 @@ adamt = Class(
 # molecules
 
 # ## Processes linked with `chondrocytes`
-chondro_anabolic = Class(
-        ns.Chondrocytes_anabolic_activity,
+chondro_anabolism = Class(
+        ns.Chondrocytes_anabolism_activity,
         graph=g,
         subClassOf=[occ],
-        comment=Literal('Chondrocytes anabolic activity is the process of construction of molecules from smaller units')
+        comment=Literal('Chondrocytes anabolism activity is the process of construction of molecules from smaller units')
     )
 
-chondro_catabolic = Class(
-        ns.Chondrocytes_catabolic_activity,
+chondro_catabolism = Class(
+        ns.Chondrocytes_catabolism_activity,
         graph=g,
         subClassOf=[occ],
-        comment=Literal('Chondrocytes catabolic activity is the process of separation of molecules. Opposite of chondrocytes anabolism')
+        comment=Literal('Chondrocytes catabolism activity is the process of separation of molecules. Opposite of chondrocytes anabolism')
     )
 
 chondro_apoptosis = Class(
@@ -129,23 +126,23 @@ chondro_hyper = Class(
 # processes linked with production of molecules
 collagen_production = Class(ns.Collagen_production, graph=g, subClassOf=[occ])
 proteoglycan_production = Class(ns.Proteoglycan_production, graph=g, subClassOf=[occ])
-# tnf_production = Class(ns.TNF_alpha_production, graph=g, subClassOf=[occ])
+tnf_production = Class(ns.TNF_alpha_production, graph=g, subClassOf=[occ])
 mmp13_production = Class(ns.MMP13_production, graph=g, subClassOf=[occ])
-adamt_production = Class(ns.Aggrecanase_ADAMTs_production, graph=g, subClassOf=[occ])
+adamt_production = Class(ns.Adamt_production, graph=g, subClassOf=[occ])
 
 # processes linked with catabolism of molecules
-collagen_loss = Class(
-        ns.Loss_of_collagen,
+collagen_catabolism = Class(
+        ns.Collagen_catabolism,
         graph=g,
         subClassOf=[occ],
-        comment=Literal('Loss of collagen molecules, a process which reduces the levels of collagen molecules')
+        comment=Literal('Catabolism of collagen molecules, a process which reduces the levels of collagen molecules')
     )
 
-proteoglycan_loss = Class(
-        ns.Loss_of_proteoglycan,
+proteoglycan_catabolism = Class(
+        ns.Proteoglycan_catabolism,
         graph=g,
         subClassOf=[occ],
-        comment=Literal('Loss of proteoglycan molecules, a process which reduces the levels of proteoglycan molecules')
+        comment=Literal('Catabolism of proteoglycan molecules, a process which reduces the levels of proteoglycan molecules')
     )
 
 # processes which are hidden, our system should suggest them
@@ -282,13 +279,13 @@ meniscal_tear = Class(
 # * adamt digest available proteoglyecan
 
 # assigning new parents only adds them, previous parents are not deleted
-chondro_anabolic.subClassOf = [
+chondro_anabolism.subClassOf = [
         (positively_regulates | some | collagen_production),
         (positively_regulates | some | proteoglycan_production)
     ]
 
-chondro_catabolic.subClassOf = [
-        # (positively_regulates | some | tnf_production),
+chondro_catabolism.subClassOf = [
+        (positively_regulates | some | tnf_production),
         (positively_regulates | some | mmp13_production),
         (positively_regulates | some | adamt_production)
     ]
@@ -296,26 +293,26 @@ chondro_catabolic.subClassOf = [
 chondro_hyper.subClassOf = [
         (positively_regulates | some | mmp13_production),
         (positively_regulates | some | adamt_production),
-        (negatively_regulates | some | chondro_anabolic),
+        (negatively_regulates | some | chondro_anabolism),
         (results_in | some | cartilage_calcification),
         (results_in | some | osteophyte_formation)
     ]
 
 tnf_overproduction.subClassOf = [
-        (negatively_regulates | some | chondro_anabolic),
-        (positively_regulates | some | chondro_catabolic)
+        (inhibits | some | chondro_anabolism),
+        (activates | some | chondro_catabolism)
     ]
 
-# tnf_production.subClassOf = [
-#         (increases_levels_of | some | tnf_alpha)
-#     ]
+tnf_production.subClassOf = [
+        (increases_levels_of | some | tnf_alpha)
+    ]
 
 mmp13_production.subClassOf = [
-        (results_in | some | collagen_loss)
+        (activates | some | collagen_catabolism)
     ]
 
 adamt_production.subClassOf = [
-        (results_in | some | proteoglycan_loss)
+        (activates | some | proteoglycan_catabolism)
     ]
 
 synovial_inflammation.subClassOf = [
@@ -324,26 +321,21 @@ synovial_inflammation.subClassOf = [
         (results_in | some | joint_deformation)
     ]
 
-chondro_apoptosis.subClassOf = [
-        (results_in | some | collagen_loss),
-        (results_in | some | proteoglycan_loss)
-    ]
-
 # ## Causal relations outside of the cellular level
 #
 mechanical_overloading.subClassOf = [
-        (positively_regulates | some | chondro_catabolic),
+        (results_in | some | chondro_catabolism),
         (results_in | some | chondro_apoptosis),
         (results_in | some | cartilage_degeneration),
         (results_in | some | meniscal_tear)
     ]
 
-collagen_loss.subClassOf = [
+collagen_catabolism.subClassOf = [
         (results_in | some | decrease_cartilage_elasticity),
         (results_in | some | biochemical_imbalance)
     ]
 
-proteoglycan_loss.subClassOf = [
+proteoglycan_catabolism.subClassOf = [
         (results_in | some | decrease_cartilage_elasticity),
         (results_in | some | biochemical_imbalance)
     ]
@@ -378,8 +370,7 @@ osteophyte_formation.subClassOf = [
     ]
 
 cartilage_degeneration.subClassOf = [
-        (results_in | some | joint_functional_impairment),
-        (results_in | some | knee_pain)
+        (results_in | some | joint_functional_impairment)
     ]
 
 ligamentous_laxity.subClassOf = [
@@ -413,6 +404,5 @@ cartilage_degeneration.subClassOf = [
 
 meniscal_tear.subClassOf = [
         (results_in | some | cartilage_degeneration),
-        (results_in | some | joint_functional_impairment),
-        (results_in | some | knee_pain)
+        (results_in | some | joint_functional_impairment)
     ]

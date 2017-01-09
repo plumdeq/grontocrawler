@@ -15,7 +15,7 @@ from rdflib.extras.infixowl import CastClass
 # please note, that in our environment, after importing `sample_ontology`, we
 # will have many variables such as mapped OWL classes and `g, ns` - rdflib
 # graph, and the namespace
-from grontocrawler.sample_ontology.hypo_ontology import *
+from grontocrawler.sample_ontology.hypo_ontology_with_mistakes import *
 from grontocrawler.graph import produce_arcs, produce_nodes
 from grontocrawler.entity_mapper import entity_mapper
 from grontocrawler.utils import graph_utils
