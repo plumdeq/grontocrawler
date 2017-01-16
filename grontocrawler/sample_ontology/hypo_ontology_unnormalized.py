@@ -84,8 +84,8 @@ mmp13 = Class(
         comment=Literal('Enzyme which is capable of catalyzing chondrocytes catabolic activity, i.e., break down of collagen and proteoglycans')
     )
 
-adamt = Class(
-        ns.Aggrecanase_ADAMTs,
+aggrecanases = Class(
+        ns.Aggrecanases,
         graph=g,
         subClassOf=[con],
         comment=Literal('Enzyme which is capable of catalyzing chondrocytes catabolic activity, i.e., break down of collagen and proteoglycans')
@@ -131,7 +131,7 @@ collagen_production = Class(ns.Collagen_production, graph=g, subClassOf=[occ])
 proteoglycan_production = Class(ns.Proteoglycan_production, graph=g, subClassOf=[occ])
 # tnf_production = Class(ns.TNF_alpha_production, graph=g, subClassOf=[occ])
 mmp13_production = Class(ns.MMP13_production, graph=g, subClassOf=[occ])
-adamt_production = Class(ns.Aggrecanase_ADAMTs_production, graph=g, subClassOf=[occ])
+aggrecanases_production = Class(ns.Aggrecanases_production, graph=g, subClassOf=[occ])
 
 # processes linked with catabolism of molecules
 collagen_loss = Class(
@@ -290,12 +290,12 @@ chondro_anabolic.subClassOf = [
 chondro_catabolic.subClassOf = [
         # (positively_regulates | some | tnf_production),
         (positively_regulates | some | mmp13_production),
-        (positively_regulates | some | adamt_production)
+        (positively_regulates | some | aggrecanases_production)
     ]
 
 chondro_hyper.subClassOf = [
         (positively_regulates | some | mmp13_production),
-        (positively_regulates | some | adamt_production),
+        (positively_regulates | some | aggrecanases_production),
         (negatively_regulates | some | chondro_anabolic),
         (results_in | some | cartilage_calcification),
         (results_in | some | osteophyte_formation)
@@ -314,7 +314,7 @@ mmp13_production.subClassOf = [
         (results_in | some | collagen_loss)
     ]
 
-adamt_production.subClassOf = [
+aggrecanases_production.subClassOf = [
         (results_in | some | proteoglycan_loss)
     ]
 
