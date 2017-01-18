@@ -153,11 +153,11 @@ tnf_overproduction = Class(ns.TNF_alpha_overproduction, graph=g, subClassOf=[occ
 
 # ## Processes outside cellular scale
 #
-mechanical_overloading = Class(
-        ns.Mechanical_overloading,
+mechanical_loading = Class(
+        ns.Mechanical_loading,
         graph=g,
         subClassOf=[occ],
-        comment=Literal('Mechanical overloading of the cartilage, environmental factor')
+        comment=Literal('Mechanical loading of the cartilage, environmental factor')
     )
 
 # ## Processes which involve cartilage on organ scale
@@ -331,8 +331,9 @@ chondro_apoptosis.subClassOf = [
 
 # ## Causal relations outside of the cellular level
 #
-mechanical_overloading.subClassOf = [
+mechanical_loading.subClassOf = [
         (positively_regulates | some | chondro_catabolic),
+        (positively_regulates | some | chondro_anabolic),
         (results_in | some | chondro_apoptosis),
         (results_in | some | cartilage_degeneration),
         (results_in | some | meniscal_tear)
