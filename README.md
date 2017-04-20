@@ -23,6 +23,18 @@ Applicability to other contexts:
 
 * The framework is very general and will work on any OWL ontology (only OWL-EL axioms will be taken into account for the graph transformation for more expressive OWL profiles)
 
+## CHANGELOG
+
+* v0.2.0                      : Incremental crawler, where you can control the max number of nodes to visit as well as the max number of iteration, i.e., depth of the graph traversal
+* 0.3                         : Adds axiom-oriented transformation of OWL ontologies into graphs
+* failing-tests               : Fixes failing tests with existential arcs and orphan restriction removal
+* v0.3.1-basic-graph-creation : Basic graph creation with nodes as OWL classes and arcs as existential restrictions
+* v0.3.2                      : Converts ontologies into graphs and then into `dot` format
+* v0.3.3                      : Adds is-a and existential rules, and updates the graph creation
+* v0.3.4                      : Circular hypothesis ontology with processes, conditions and continuants
+* v0.3.6                      : Updates the hypothesis ontology to include corrections from domain experts
+* v0.3.7                      : Public release to GitHub
+
 ## LICENSE
 
    Copyright 2015-2017 Asan Agibetov <asan.agibetov@gmail.com>
