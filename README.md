@@ -23,6 +23,32 @@ Applicability to other contexts:
 
 * The framework is very general and will work on any OWL ontology (only OWL-EL axioms will be taken into account for the graph transformation for more expressive OWL profiles)
 
+## INSTALL
+
+Grontocrawler has been tested on Mac OS X (Yosemite) and Windows 10. Please use
+[pip][pip] to install dependencies. 
+
+```bash
+pip install -r requirements.txt
+python setup.py [develop] # `develop` will not put all the files in the specific `site-packages` on your system
+```
+
+### TEST
+
+Once you have `Grontocrawler` on your `PATH` environment variable, i.e., you
+have installed it on your system, you could run tests with `pytest`
+
+```
+pytest test
+```
+
+## USAGE
+
+See `./scripts` folder for different use-cases of `Grontocrawler`, those Python
+scripts can be invoked from the command-line with arguments. Refer to the paper
+and online presentation for the general overview and the description of
+`Grontocrawler`.
+
 ## CHANGELOG
 
 * v0.2.0                      : Incremental crawler, where you can control the max number of nodes to visit as well as the max number of iteration, i.e., depth of the graph traversal
@@ -54,3 +80,4 @@ Applicability to other contexts:
 
 [grontocrawler]: http://grontocrawler.plumdeq.xyz
 [stag2015]: http://asan.agibetov.me/talks/stag2015
+[pip]: https://packaging.python.org/installing/
